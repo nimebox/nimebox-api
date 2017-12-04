@@ -25,6 +25,6 @@ fastify.get('/', function (request, reply) {
 
 fastify.listen(3000, function (err) {
   if (err) throw err
-  console.log(`Nimbox Middleware is listening on ${fastify.server.address().port}`)
+  console.log(`Nimebox Middleware is listening on ${fastify.server.address().port}`)
 })
 module.exports = fastify
