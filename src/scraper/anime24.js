@@ -1,13 +1,8 @@
 const x = require('x-ray')()
 const axios = require('axios')
-const axiosCookieJarSupport = require('@3846masa/axios-cookiejar-support')
-const tough = require('tough-cookie')
 const _ = require('lodash')
-const cookieJar = new tough.CookieJar()
-axiosCookieJarSupport(axios)
 
 const api = axios.create({
-  jar: cookieJar,
   withCredentials: true
 })
 const BASE_URL = 'http://anime24.pl'

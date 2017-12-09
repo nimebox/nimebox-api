@@ -1,4 +1,5 @@
 const fastify = require('fastify')()
+const fs = require('fs')
 const keys = new Set(['c0366e6f04436200b9998419134e4c3216b08daf'])
 fastify.register(require('fastify-helmet'))
 fastify.register(require('fastify-bearer-auth'), {keys}, (err) => {
@@ -17,13 +18,14 @@ fastify.register(
 
 // API Routing
 fastify.register(require('./routes/v1/'), { prefix: '/v1' })
+fastify.register(require('./routes/v1/anime'), { prefix: '/v1' })
 fastify.register(require('./routes/v1/news'), { prefix: '/v1' })
 
-fastify.get('/', function (request, reply) {
+fastify.get('/', (request, reply) => {
   reply.redirect(302, '/v1')
 })
 
-fastify.listen(3000, function (err) {
+fastify.listen(3000, (err) => {
   if (err) throw err
   console.log(`Nimebox Middleware is listening on ${fastify.server.address().port}`)
 })
