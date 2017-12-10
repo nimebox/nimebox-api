@@ -26,7 +26,7 @@ const news = async () => {
           title: el,
           url: _.compact(obj.url)[i],
           date: _.compact(obj.date)[i],
-          description: _.compact(obj.description)[i],
+          description: _.trim(_.compact(obj.description)[i]),
           image: _.compact(obj.image)[i]
         })
       })
