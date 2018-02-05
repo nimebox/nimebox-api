@@ -1,8 +1,13 @@
 const animenews = require('../../../scraper/anime24')
 module.exports = (fastify, opts, next) => {
-  fastify.get('/news', opts, (req, reply) => {
+  fastify.get('/news', opts, async (req, reply) => {
     reply.header('Content-Type', 'application/json').code(200)
-    animenews.news().then(el => reply.send(el)).catch(err => reply.send(err))
+    try {
+      const res = await animenews.news()
+      reply.send(res)
+    } catch (err) {
+      reply.send(err)
+    }
   })
   next()
 }
