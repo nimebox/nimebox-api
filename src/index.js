@@ -1,5 +1,5 @@
 const fastify = require('fastify')()
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5000 || 8080
 const keys = new Set(['c0366e6f04436200b9998419134e4c3216b08daf'])
 fastify.register(require('fastify-helmet'))
 fastify.register(require('fastify-bearer-auth'), {keys}, (err) => {
