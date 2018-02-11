@@ -4,6 +4,8 @@ const _ = require('lodash')
 
 const mp4upload = require('../videoPlayers/Mp4UploadCom')
 
+const utils = require('../utils')
+
 const BASE_URL = 'http://www.senpai.com.pl'
 
 const getAnimes = async () => {
@@ -61,28 +63,43 @@ const getAnimePlayers = async (q, n) => {
   return new Promise((resolve, reject) => {
     x(response.data, {
       host: ['div[class="container"] > ul[class="tabs"] > li[class="tab"] > a'],
-      player1: 'div[class="container"] > div[id="pl1"] > div[class="video-container"] > iframe@src',
-      player2: 'div[class="container"] > div[id="pl2"] > div[class="video-container"] > iframe@src',
-      player3: 'div[class="container"] > div[id="pl3"] > div[class="video-container"] > iframe@src'
+      players: ['div[class="video-container"] > iframe@src']
     })(async (err, obj) => {
       if (err) {
         reject(err)
       }
 
-      const player1 = await mp4upload.getVideo(obj.player1)
-      const pls = [
-        player1.url,
-        obj.player2,
-        obj.player3
-      ]
-
-      const list = pls.map((el, i) => {
+      const list = _.map(_.zip(obj.host, obj.players), (objZiped) => {
+        console.log(objZiped)
         return ({
-          host: obj.host[i],
-          player: el
+          host: objZiped[0],
+          player: objZiped[1]
         })
       })
-      resolve(list)
+
+      const returnList = []
+
+      const toDecode = []
+
+      _.forEach(list, (item, index) => {
+        const domain = utils.getDomainName(item.player)
+        if (domain === 'mp4upload.com') {
+          toDecode.push(item)
+        } else {
+          returnList.push(item)
+        }
+      })
+
+      // TODO to change !!
+      if (toDecode.length === 1) {
+        const result = await mp4upload.getVideo(toDecode[0].player)
+        returnList.push({
+          host: toDecode[0].host,
+          player: result.url
+        })
+      }
+
+      resolve(returnList)
     })
   })
 }
