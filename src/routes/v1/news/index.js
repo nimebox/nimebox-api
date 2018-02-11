@@ -1,4 +1,4 @@
-const animenews = require('../../../scraper/anime24')
+const animenews = require('../../../scrapers/anime24')
 module.exports = (fastify, opts, next) => {
   fastify.get('/news', opts, async (req, reply) => {
     reply.header('Content-Type', 'application/json').code(200)

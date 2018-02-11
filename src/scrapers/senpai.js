@@ -1,15 +1,9 @@
 const x = require('x-ray')()
-const axios = require('axios')
-const axiosCookieJarSupport = require('@3846masa/axios-cookiejar-support')
-const tough = require('tough-cookie')
+const api = require('../utls/api')
 const _ = require('lodash')
-const cookieJar = new tough.CookieJar()
-axiosCookieJarSupport(axios)
 
-const api = axios.create({
-  jar: cookieJar,
-  withCredentials: true
-})
+const mp4upload = require('../videoPlayers/Mp4UploadCom')
+
 const BASE_URL = 'http://www.senpai.com.pl'
 
 const getAnimes = async () => {
@@ -37,32 +31,6 @@ const getAnimes = async () => {
     })
   })
 }
-/**
-  * @deprecated
-*/
-// const episodes = async (url) => {
-//   const response = await api.get(url)
-//   return new Promise((resolve, reject) => {
-//     x(response.data, {
-//       number: ['div[class="collection row anime-col"] > a[class="collection-item anime-item"] > div[class="anime-number"] > h5'],
-//       url: ['div[class="collection row anime-col"] > a[class="collection-item anime-item"]@href'],
-//       description: ['div[class="collection row anime-col"] > a[class="collection-item anime-item"] > div[class="anime-desc"] > span[class="grey-text text-lighten-1"]']
-//     })((err, obj) => {
-//       if (err) {
-//         reject(err)
-//       }
-
-//       const list = _.compact(obj.number).map((el, i) => {
-//         return ({
-//           number: el,
-//           url: BASE_URL + obj.url[i],
-//           description: obj.description[i]
-//         })
-//       })
-//       resolve(list)
-//     })
-//   })
-// }
 
 const getAnime = async (q) => {
   const response = await api.get(`${BASE_URL}/anime/${q}`)
@@ -87,38 +55,6 @@ const getAnime = async (q) => {
     })
   })
 }
-/**
-  * @deprecated
-*/
-// const players = async (url) => {
-//   const response = await api.get(url)
-//   return new Promise((resolve, reject) => {
-//     x(response.data, {
-//       host: ['div[class="container"] > ul[class="tabs"] > li[class="tab"] > a'],
-//       player1: 'div[class="container"] > div[id="pl1"] > div[class="video-container"] > iframe@src',
-//       player2: 'div[class="container"] > div[id="pl2"] > div[class="video-container"] > iframe@src',
-//       player3: 'div[class="container"] > div[id="pl3"] > div[class="video-container"] > iframe@src'
-//     })((err, obj) => {
-//       if (err) {
-//         reject(err)
-//       }
-
-//       const pls = [
-//         obj.player1,
-//         obj.player2,
-//         obj.player3
-//       ]
-
-//       const list = pls.map((el, i) => {
-//         return ({
-//           host: obj.host[i],
-//           player: el
-//         })
-//       })
-//       resolve(list)
-//     })
-//   })
-// }
 
 const getAnimePlayers = async (q, n) => {
   const response = await api.get(`${BASE_URL}/anime/${q}/${n}`)
@@ -128,13 +64,14 @@ const getAnimePlayers = async (q, n) => {
       player1: 'div[class="container"] > div[id="pl1"] > div[class="video-container"] > iframe@src',
       player2: 'div[class="container"] > div[id="pl2"] > div[class="video-container"] > iframe@src',
       player3: 'div[class="container"] > div[id="pl3"] > div[class="video-container"] > iframe@src'
-    })((err, obj) => {
+    })(async (err, obj) => {
       if (err) {
         reject(err)
       }
 
+      const player1 = await mp4upload.getVideo(obj.player1)
       const pls = [
-        obj.player1,
+        player1.url,
         obj.player2,
         obj.player3
       ]

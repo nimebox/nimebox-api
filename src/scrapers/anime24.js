@@ -1,10 +1,7 @@
 const x = require('x-ray')()
-const axios = require('axios')
+const api = require('../utls/api')
 const _ = require('lodash')
 
-const api = axios.create({
-  withCredentials: true
-})
 const BASE_URL = 'http://anime24.pl'
 
 const news = async () => {
