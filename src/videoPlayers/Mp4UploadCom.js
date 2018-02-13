@@ -8,7 +8,7 @@ const getVideo = (url) => {
       if (err) {
         reject(err)
       }
-      const regexDataDecoder = /return p}(?:\('(.*)\'\,)([1-9]+),([1-9]+),(?:\'(.*)\'\.split)/igm
+      const regexDataDecoder = /return\ p\}(?:\('(.*)\'\,)([0-9]+),([0-9]+),(?:\'(.*)\'\.split)/
       const regexGetVideoAndPoster = /(?:var videoposter\=\\\'(.*)\\\'\;).*(?:src:"(.+)+")/igm
 
       const script = obj.script[7]
