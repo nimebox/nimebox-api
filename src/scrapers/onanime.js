@@ -3,7 +3,7 @@ const axios = require('axios')
 const _ = require('lodash')
 const qs = require('qs')
 
-const utils = require('../utils')
+const utils = require('../utls/utils')
 
 const BASE_URL = 'https://on-anime.pl'
 

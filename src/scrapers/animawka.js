@@ -1,21 +1,20 @@
 const x = require('x-ray')()
 const api = require('../utls/api')
 const _ = require('lodash')
-
 const mp4upload = require('../videoplayers/Mp4UploadCom')
 
 const utils = require('../utls/utils')
 
-const BASE_URL = 'http://www.senpai.com.pl'
+const BASE_URL = 'https://animawka.pl'
 
 const getAnimes = async () => {
   const response = await api.get(`${BASE_URL}/anime`)
   return new Promise((resolve, reject) => {
     x(response.data, {
-      title: ['div[class="collection row anime-col"] > a[class="collection-item anime-item col l6 m6 s12"] > div[class="anime-desc"] > span[class="title anime-title"]'],
-      url: ['div[class="collection row anime-col"] > a[class="collection-item anime-item col l6 m6 s12"]@href'],
-      description: ['div[class="collection row anime-col"] > a[class="collection-item anime-item col l6 m6 s12"] > div[class="anime-desc"] > span[class="grey-text text-lighten-1"]'],
-      image: ['div[class="collection row anime-col"] > a[class="collection-item anime-item col l6 m6 s12"] > img[class="anime-cover"]@src']
+      title: ['div[class="container"] > div[class="row"] > div[class="col s12"] > div[class="card medium hide-on-large-only"] > div[class="card-image waves-effect waves-block waves-light"] > span[class="card-title boldtitle activator"]'],
+      url: ['div[class="container"] > div[class="row"] > div[class="col s12"] > div[class="card medium hide-on-large-only"] > div[class="card-action"] > a@href'],
+      description: ['div[class="container"] > div[class="row"] > div[class="col s12"] > div[class="card medium hide-on-large-only"] > div[class="card-reveal"] > p'],
+      image: ['div[class="container"] > div[class="row"] > div[class="col s12"] > div[class="card medium hide-on-large-only"] > div[class="card-image waves-effect waves-block waves-light"] > img@src']
     })((err, obj) => {
       if (err) {
         reject(err)
@@ -26,31 +25,31 @@ const getAnimes = async () => {
           title: el,
           url: BASE_URL + obj.url[i],
           description: obj.description[i],
-          image: BASE_URL + obj.image[i]
+          image: obj.image[i]
         })
       })
       resolve(list)
     })
   })
 }
-
 const getAnime = async (q) => {
   const response = await api.get(`${BASE_URL}/anime/${q}`)
   return new Promise((resolve, reject) => {
     x(response.data, {
-      number: ['div[class="collection row anime-col"] > a[class="collection-item anime-item"] > div[class="anime-number"] > h5'],
-      url: ['div[class="collection row anime-col"] > a[class="collection-item anime-item"]@href'],
-      description: ['div[class="collection row anime-col"] > a[class="collection-item anime-item"] > div[class="anime-desc"] > span[class="grey-text text-lighten-1"]']
+      url: ['div[class="col s12 m6"] > div[class="card"] > div[class="collection"] > a[class="collection-item black-text"]@href'],
+      description: ['div[class="col s12 m6"] > div[class="card"] > div[class="collection"] > a[class="collection-item black-text"]']
     })((err, obj) => {
       if (err) {
         reject(err)
       }
 
-      const list = _.compact(obj.number).map((el, i) => {
+      const list = _.compact(obj.url).map((el, i) => {
         return ({
-          number: el,
-          url: BASE_URL + obj.url[i],
-          description: obj.description[i]
+          number: i + 1,
+          url: BASE_URL + el,
+          // number: obj.description[i].match(/[0-9]+/g)[0],
+          // obj.description[i].replace(/\t|\n|(.*)\Odcinek {2}\b(.*)|-/g, ''),
+          description: obj.description[i].replace(/\t|\n/g, '')
         })
       })
       resolve(list)
@@ -62,7 +61,7 @@ const getAnimePlayers = async (q, n) => {
   const response = await api.get(`${BASE_URL}/anime/${q}/${n}`)
   return new Promise((resolve, reject) => {
     x(response.data, {
-      host: ['div[class="container"] > ul[class="tabs"] > li[class="tab"] > a'],
+      host: ['div[class="card-tabs"] > ul[class="tabs tabs-fixed-width tabs-transparent"] > li[class="tab"] > a'],
       players: ['div[class="video-container"] > iframe@src']
     })(async (err, obj) => {
       if (err) {
@@ -104,6 +103,9 @@ const getAnimePlayers = async (q, n) => {
   })
 }
 
+// getAnimes().then(el => console.log(el)).catch(err => console.log(err))
+// getAnime('citrus').then(el => console.log(el)).catch(err => console.log(err))
+// getAnimePlayers('citrus', '1').then(el => console.log(el)).catch(err => console.log(err))
 module.exports = {
   getAnimes,
   getAnime,
