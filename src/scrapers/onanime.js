@@ -44,7 +44,7 @@ const getAnimes = async () => {
 
       _.forEach(obj.items, (value) => {
         fullList.push({
-          id: value.url.split('/').pop().toLowerCase(),
+          // id: value.url.split('/').pop().toLowerCase(),
           title: value.title.trim(),
           url: `${BASE_URL}/${value.url}/odcinki`,
           description: `${value.description === undefined ? '' : value.description}`,
@@ -99,9 +99,9 @@ const runAndParsePage = async (form) => {
       const list = []
       _.forEach(obj.items, (value) => {
         list.push({
-          id: value.url.split('/').pop().toLowerCase(),
+          // id: value.url.split('/').pop().toLowerCase(),
           title: value.title.trim(),
-          url: `${value.url}/odcinki`,
+          url: `${BASE_URL}/${value.url}/odcinki`,
           description: `${value.description === undefined ? '' : value.description}`,
           image: `${BASE_URL}/${value.image.slice(9, -2)}`
         })

@@ -1,9 +1,12 @@
 const senpai = require('../../../scrapers/senpai')
+const allanimu = require('../../../scrapers/index')
+
 module.exports = (fastify, opts, next) => {
   fastify.get('/anime', opts, async (req, reply) => {
     reply.header('Content-Type', 'application/json').code(200)
     try {
-      const res = await senpai.getAnimes()
+      // const res = await senpai.getAnimes()
+      const res = await allanimu.getAnimes()
       reply.send(res)
     } catch (err) {
       reply.send(err)

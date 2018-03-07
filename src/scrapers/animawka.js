@@ -1,5 +1,11 @@
 const x = require('x-ray')()
-const api = require('../utls/api')
+const axios = require('axios')
+const api = axios.create({
+  headers: {
+    'Accept': 'text/html',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3165.0 Safari/537.36'
+  }
+})
 const _ = require('lodash')
 const mp4upload = require('../videoplayers/Mp4UploadCom')
 
@@ -103,9 +109,6 @@ const getAnimePlayers = async (q, n) => {
   })
 }
 
-// getAnimes().then(el => console.log(el)).catch(err => console.log(err))
-// getAnime('citrus').then(el => console.log(el)).catch(err => console.log(err))
-// getAnimePlayers('citrus', '1').then(el => console.log(el)).catch(err => console.log(err))
 module.exports = {
   getAnimes,
   getAnime,

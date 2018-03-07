@@ -1,5 +1,12 @@
 const x = require('x-ray')()
-const api = require('../utls/api')
+const axios = require('axios')
+const api = axios.create({
+  headers: {
+    'Accept': 'text/html',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3165.0 Safari/537.36'
+  }
+})
+
 const _ = require('lodash')
 
 const mp4upload = require('../videoplayers/Mp4UploadCom')
@@ -9,8 +16,12 @@ const utils = require('../utls/utils')
 const BASE_URL = 'http://www.senpai.com.pl'
 
 const getAnimes = async () => {
-  const response = await api.get(`${BASE_URL}/anime`)
-  return new Promise((resolve, reject) => {
+  try {
+    const response = await api.get(`${BASE_URL}/anime`)
+    let title = null
+    let url = null
+    let description = null
+    let image = null
     x(response.data, {
       title: ['div[class="collection row anime-col"] > a[class="collection-item anime-item col l6 m6 s12"] > div[class="anime-desc"] > span[class="title anime-title"]'],
       url: ['div[class="collection row anime-col"] > a[class="collection-item anime-item col l6 m6 s12"]@href'],
@@ -18,20 +29,27 @@ const getAnimes = async () => {
       image: ['div[class="collection row anime-col"] > a[class="collection-item anime-item col l6 m6 s12"] > img[class="anime-cover"]@src']
     })((err, obj) => {
       if (err) {
-        reject(err)
+        throw err
       }
-
-      const list = _.compact(obj.title).map((el, i) => {
-        return ({
-          title: el,
-          url: BASE_URL + obj.url[i],
-          description: obj.description[i],
-          image: BASE_URL + obj.image[i]
-        })
-      })
-      resolve(list)
+      title = obj.title
+      url = obj.url
+      description = obj.description
+      image = obj.image
     })
-  })
+
+    const list = _.compact(title).map((el, i) => {
+      return ({
+        title: el,
+        url: BASE_URL + url[i],
+        description: description[i],
+        image: BASE_URL + image[i]
+      })
+    })
+
+    return list
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 const getAnime = async (q) => {
