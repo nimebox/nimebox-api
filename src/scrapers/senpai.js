@@ -13,40 +13,40 @@ const mp4upload = require('../videoplayers/Mp4UploadCom')
 
 const utils = require('../utls/utils')
 
+const SERVICE_ID = 'senpai'
 const BASE_URL = 'http://www.senpai.com.pl'
 
 const getAnimes = async () => {
   try {
     const response = await api.get(`${BASE_URL}/anime`)
-    let title = null
-    let url = null
-    let description = null
-    let image = null
+    let items = null
     x(response.data, {
-      title: ['div[class="collection row anime-col"] > a[class="collection-item anime-item col l6 m6 s12"] > div[class="anime-desc"] > span[class="title anime-title"]'],
-      url: ['div[class="collection row anime-col"] > a[class="collection-item anime-item col l6 m6 s12"]@href'],
-      description: ['div[class="collection row anime-col"] > a[class="collection-item anime-item col l6 m6 s12"] > div[class="anime-desc"] > span[class="grey-text text-lighten-1"]'],
-      image: ['div[class="collection row anime-col"] > a[class="collection-item anime-item col l6 m6 s12"] > img[class="anime-cover"]@src']
+      items: x('a.collection-item.anime-item', [{
+        title: 'div.anime-desc > span.title.anime-title',
+        url: '@href',
+        description: 'div.anime-desc > span.grey-text.text-lighten-1',
+        image: 'img.anime-cover@src'
+      }])
     })((err, obj) => {
       if (err) {
         throw err
       }
-      title = obj.title
-      url = obj.url
-      description = obj.description
-      image = obj.image
+      items = obj.items
     })
 
-    const list = _.compact(title).map((el, i) => {
-      return ({
-        title: el,
-        url: BASE_URL + url[i],
-        description: description[i],
-        image: BASE_URL + image[i]
+    const list = []
+
+    _.forEach(items, (value) => {
+      list.push({
+        // id: value.url.split('/').pop().toLowerCase(),
+        title: value.title.trim(),
+        url: `${BASE_URL}/${value.url}`,
+        description: `${value.description}`,
+        image: `${BASE_URL}/${value.image}`
       })
     })
 
-    return list
+    return {serviceId: SERVICE_ID, list: list}
   } catch (err) {
     console.log(err)
   }
@@ -56,22 +56,28 @@ const getAnime = async (q) => {
   const response = await api.get(`${BASE_URL}/anime/${q}`)
   return new Promise((resolve, reject) => {
     x(response.data, {
-      number: ['div[class="collection row anime-col"] > a[class="collection-item anime-item"] > div[class="anime-number"] > h5'],
-      url: ['div[class="collection row anime-col"] > a[class="collection-item anime-item"]@href'],
-      description: ['div[class="collection row anime-col"] > a[class="collection-item anime-item"] > div[class="anime-desc"] > span[class="grey-text text-lighten-1"]']
+      items: x('a.collection-item.anime-item', [{
+        number: 'div.anime-number > h5',
+        url: '@href',
+        description: 'div.anime-desc > span.grey-text.text-lighten-1'
+      }])
     })((err, obj) => {
       if (err) {
         reject(err)
       }
 
-      const list = _.compact(obj.number).map((el, i) => {
-        return ({
-          number: el,
-          url: BASE_URL + obj.url[i],
-          description: obj.description[i]
+      const list = []
+
+      _.forEach(obj.items, (value) => {
+        list.push({
+          id: value.url.split('/').pop().toLowerCase(),
+          number: value.number.trim(),
+          url: `${BASE_URL}/${value.url}`,
+          description: `${value.description}`
         })
       })
-      resolve(list)
+
+      resolve({serviceId: SERVICE_ID, animeId: q, list: list})
     })
   })
 }

@@ -1,5 +1,6 @@
 const senpai = require('../../../scrapers/senpai')
 const allanimu = require('../../../scrapers/index')
+const servicesManager = require('../../../managers/ServicesManager')
 
 module.exports = (fastify, opts, next) => {
   fastify.get('/anime', opts, async (req, reply) => {

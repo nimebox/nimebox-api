@@ -5,6 +5,7 @@ const qs = require('qs')
 
 const utils = require('../utls/utils')
 
+const SERVICE_ID = 'onanime'
 const BASE_URL = 'https://on-anime.pl'
 
 const api = axios.create({
@@ -74,8 +75,9 @@ const getAnimes = async () => {
         _.forEach(rest, (item) => {
           fullList = _.concat(fullList, item)
         })
-        resolve(fullList)
         fullList = _.sortBy(fullList, [(o) => { return o.title }])
+
+        resolve({serviceId: SERVICE_ID, list: fullList})
       })
     })
   })
@@ -91,7 +93,7 @@ const runAndParsePage = async (form) => {
         description: 'div > h6:nth-of-type(2)',
         image: 'div > div.obrazek@onclick'
       }])
-    })((err, obj) => {
+    })(async (err, obj) => {
       if (err) {
         reject(err)
       }
@@ -112,6 +114,7 @@ const runAndParsePage = async (form) => {
 }
 
 const getAnime = async (q) => {
+  await utils.wait(5000)
   const response = await api.get(`/anime/${q}/odcinki`)
   return new Promise((resolve, reject) => {
     xray(response.data, {
@@ -127,6 +130,7 @@ const getAnime = async (q) => {
 
       const list = []
       _.forEach(obj.items, (value) => {
+        console.log(`url: ${value.url}`)
         list.push({
           id: value.url.split('/').pop().toLowerCase(),
           title: `${value.epNumber.trim()} - ${value.title.trim()}`,
@@ -134,7 +138,7 @@ const getAnime = async (q) => {
         })
       })
 
-      resolve(list)
+      resolve({serviceId: SERVICE_ID, animeId: q, list: list})
     })
   })
 }
