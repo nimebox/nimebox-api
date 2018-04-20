@@ -9,9 +9,9 @@ const api = axios.create({
 
 const _ = require('lodash')
 
-const mp4upload = require('../videoplayers/Mp4UploadCom')
+// const mp4upload = require('../videoplayers/Mp4UploadCom')
 
-const utils = require('../utls/utils')
+// const utils = require('../utls/utils')
 
 const SERVICE_ID = 'senpai'
 const BASE_URL = 'http://www.senpai.com.pl'
@@ -46,7 +46,7 @@ const getAnimes = async () => {
       })
     })
 
-    return {serviceId: SERVICE_ID, list: list}
+    return { serviceId: SERVICE_ID, list: list }
   } catch (err) {
     console.log(err)
   }
@@ -77,7 +77,7 @@ const getAnime = async (q) => {
         })
       })
 
-      resolve({serviceId: SERVICE_ID, animeId: q, list: list})
+      resolve({ serviceId: SERVICE_ID, animeId: q, list: list })
     })
   })
 }
@@ -103,25 +103,9 @@ const getAnimePlayers = async (q, n) => {
 
       const returnList = []
 
-      const toDecode = []
-
       _.forEach(list, (item, index) => {
-        const domain = utils.getDomainName(item.player)
-        if (domain === 'mp4upload.com') {
-          toDecode.push(item)
-        } else {
-          returnList.push(item)
-        }
+        returnList.push(item)
       })
-
-      // TODO to change !!
-      if (toDecode.length === 1) {
-        const result = await mp4upload.getVideo(toDecode[0].player)
-        returnList.push({
-          host: toDecode[0].host,
-          player: result.url
-        })
-      }
 
       resolve(returnList)
     })
