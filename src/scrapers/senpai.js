@@ -38,7 +38,7 @@ const getAnimes = async () => {
 
     _.forEach(items, (value) => {
       list.push({
-        // id: value.url.split('/').pop().toLowerCase(),
+        id: value.url.split('/').pop().toLowerCase(),
         title: value.title.trim(),
         url: `${BASE_URL}/${value.url}`,
         description: `${value.description}`,

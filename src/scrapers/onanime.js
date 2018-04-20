@@ -45,7 +45,7 @@ const getAnimes = async () => {
 
       _.forEach(obj.items, (value) => {
         fullList.push({
-          // id: value.url.split('/').pop().toLowerCase(),
+          id: value.url.split('/').pop().toLowerCase(),
           title: value.title.trim(),
           url: `${BASE_URL}/${value.url}/odcinki`,
           description: `${value.description === undefined ? '' : value.description}`,
@@ -101,7 +101,7 @@ const runAndParsePage = async (form) => {
       const list = []
       _.forEach(obj.items, (value) => {
         list.push({
-          // id: value.url.split('/').pop().toLowerCase(),
+          id: value.url.split('/').pop().toLowerCase(),
           title: value.title.trim(),
           url: `${BASE_URL}/${value.url}/odcinki`,
           description: `${value.description === undefined ? '' : value.description}`,
@@ -120,7 +120,7 @@ const getAnime = async (q) => {
     xray(response.data, {
       items: xray('#lista_odcinkow > div.tab', [{
         title: 'div.tp.tbl > a',
-        url: 'div.tp.tbl > div.right > div > a@href',
+        url: 'div.tp.tbl > a@href',
         epNumber: 'div.tp.tbl:nth-of-type(2)'
       }])
     })((err, obj) => {
@@ -132,7 +132,7 @@ const getAnime = async (q) => {
       _.forEach(obj.items, (value) => {
         console.log(`url: ${value.url}`)
         list.push({
-          id: value.url.split('/').pop().toLowerCase(),
+          //id: value.url.split('/').pop().toLowerCase(),
           title: `${value.epNumber.trim()} - ${value.title.trim()}`,
           url: `${value.url}`
         })
