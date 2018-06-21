@@ -1,11 +1,24 @@
 const senpai = require('../../../scrapers/senpai')
-// const servicesManager = require('../../../managers/ServicesManager')
+const animawka = require('../../../scrapers/animawka')
+const onanime = require('../../../scrapers/onanime')
 
 module.exports = (fastify, opts, next) => {
   fastify.get('/anime', opts, async (req, reply) => {
     reply.header('Content-Type', 'application/json').code(200)
     try {
-      const res = await senpai.getAnimes()
+      let res = null
+      switch (req.query.provider) {
+        case 'animawka':
+          res = await animawka.getAnimes()
+          break
+        case 'onanime':
+          res = await onanime.getAnimes()
+          break
+        case 'senpai':
+        default:
+          res = await senpai.getAnimes()
+          break
+      }
       reply.send(res)
     } catch (err) {
       reply.send(err)
@@ -17,7 +30,19 @@ module.exports = (fastify, opts, next) => {
       reply.send({error: 'Missing q param'})
     } else {
       try {
-        const res = await senpai.getAnime(req.params.q)
+        let res = null
+        switch (req.query.provider) {
+          case 'animawka':
+            res = await animawka.getAnime(req.params.q)
+            break
+          case 'onanime':
+            res = await onanime.getAnime(req.params.q)
+            break
+          case 'senpai':
+          default:
+            res = await senpai.getAnime(req.params.q)
+            break
+        }
         reply.send(res)
       } catch (err) {
         reply.send(err)
@@ -30,7 +55,19 @@ module.exports = (fastify, opts, next) => {
       reply.send({error: 'Missing q and n param'})
     } else {
       try {
-        const res = await senpai.getAnimePlayers(req.params.q, req.params.n)
+        let res = null
+        switch (req.query.provider) {
+          case 'animawka':
+            res = await animawka.getAnimePlayers(req.params.q, req.params.n)
+            break
+          case 'onanime':
+            res = await onanime.getAnimePlayers(req.params.q, req.params.n)
+            break
+          case 'senpai':
+          default:
+            res = await senpai.getAnimePlayers(req.params.q, req.params.n)
+            break
+        }
         reply.send(res)
       } catch (err) {
         reply.send(err)

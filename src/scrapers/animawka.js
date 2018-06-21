@@ -11,6 +11,7 @@ const mp4upload = require('../videoplayers/Mp4UploadCom')
 
 const utils = require('../utls/utils')
 
+const SERVICE_ID = 'animawka'
 const BASE_URL = 'https://animawka.pl'
 
 const getAnimes = async () => {
@@ -26,7 +27,7 @@ const getAnimes = async () => {
         reject(err)
       }
 
-      const list = _.compact(obj.title).map((el, i) => {
+      const items = _.compact(obj.title).map((el, i) => {
         return ({
           title: el,
           url: BASE_URL + obj.url[i],
@@ -34,7 +35,7 @@ const getAnimes = async () => {
           image: obj.image[i]
         })
       })
-      resolve(list)
+      resolve({serviceId: SERVICE_ID, items: items})
     })
   })
 }
@@ -49,7 +50,7 @@ const getAnime = async (q) => {
         reject(err)
       }
 
-      const list = _.compact(obj.url).map((el, i) => {
+      const items = _.compact(obj.url).map((el, i) => {
         return ({
           number: i + 1,
           url: BASE_URL + el,
@@ -58,7 +59,7 @@ const getAnime = async (q) => {
           description: obj.description[i].replace(/\t|\n/g, '')
         })
       })
-      resolve(list)
+      resolve({serviceId: SERVICE_ID, items: items})
     })
   })
 }

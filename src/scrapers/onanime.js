@@ -77,7 +77,7 @@ const getAnimes = async () => {
         })
         fullList = _.sortBy(fullList, [(o) => { return o.title }])
 
-        resolve({serviceId: SERVICE_ID, list: fullList})
+        resolve({serviceId: SERVICE_ID, items: fullList})
       })
     })
   })
@@ -138,7 +138,7 @@ const getAnime = async (q) => {
         })
       })
 
-      resolve({serviceId: SERVICE_ID, animeId: q, list: list})
+      resolve({serviceId: SERVICE_ID, animeId: q, items: list})
     })
   })
 }
