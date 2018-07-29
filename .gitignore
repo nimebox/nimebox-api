@@ -58,6 +58,7 @@ typings/
 
 # dotenv environment variables file
 .env
+.env.production
 
 ### Example user template template
 ### Example user template
