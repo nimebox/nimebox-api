@@ -21,10 +21,6 @@ fastify.register(require('./routes/v1/'), { prefix: '/v1' })
 fastify.register(require('./routes/v1/anime'), { prefix: '/v1' })
 fastify.register(require('./routes/v1/news'), { prefix: '/v1' })
 
-fastify.get('/', (request, reply) => {
-  reply.redirect(302, '/v1')
-})
-
 fastify.listen(PORT, '0.0.0.0', (err) => {
   if (err) throw err
   console.log(`Nimebox Middleware is listening on ${fastify.server.address().port}`)
