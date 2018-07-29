@@ -1,9 +1,11 @@
-const senpai = require('../../../scrapers/senpai')
-const animawka = require('../../../scrapers/animawka')
-const onanime = require('../../../scrapers/onanime')
+import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify'
+import { ServerResponse, IncomingMessage } from 'http'
+import senpai from '../../../scrapers/senpai'
+import animawka from '../../../scrapers/animawka'
+import onanime from '../../../scrapers/onanime'
 
-module.exports = (fastify, opts, next) => {
-  fastify.get('/anime', opts, async (req, reply) => {
+export default async (fastify: FastifyInstance, opts) => {
+  fastify.get('/anime', opts, async (req: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) => {
     reply.header('Content-Type', 'application/json').code(200)
     try {
       let res = null
@@ -24,10 +26,10 @@ module.exports = (fastify, opts, next) => {
       reply.send(err)
     }
   })
-  fastify.get('/anime/:q', opts, async (req, reply) => {
+  fastify.get('/anime/:q', opts, async (req: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) => {
     reply.header('Content-Type', 'application/json').code(200)
     if (req.params === undefined || !req.params.q) {
-      reply.send({error: 'Missing q param'})
+      reply.send({ error: 'Missing q param' })
     } else {
       try {
         let res = null
@@ -49,10 +51,10 @@ module.exports = (fastify, opts, next) => {
       }
     }
   })
-  fastify.get('/anime/:q/:n', opts, async (req, reply) => {
+  fastify.get('/anime/:q/:n', opts, async (req: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) => {
     reply.header('Content-Type', 'application/json').code(200)
     if (req.params === undefined || !req.params.q || !req.params.n) {
-      reply.send({error: 'Missing q and n param'})
+      reply.send({ error: 'Missing q and n param' })
     } else {
       try {
         let res = null
@@ -75,5 +77,5 @@ module.exports = (fastify, opts, next) => {
     }
   })
 
-  next()
+  return
 }

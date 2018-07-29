@@ -1,19 +1,13 @@
 {
     "extends": "tslint-config-standard",
     "rules": {
-        "semicolon": [
-            true,
-            "never"
-        ],
-        "ter-arrow-parens": false,
-        "import-name": false,
         "max-line-length": false,
-        "object-literal-shorthand": false
+        "no-unused-variable":false
     },
     "linterOptions": {
         "exclude": [
-            "src/migration/*",
-            "test/__mocks__/*"
+            "test/__mocks__/*",
+            "*.json"
         ]
     }
 }

@@ -1,15 +1,13 @@
 const x = require('x-ray')()
-const axios = require('axios')
+import axios from 'axios'
+import _ from 'lodash'
+import utils from '../utils'
 const api = axios.create({
   headers: {
     'Accept': 'text/html',
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3165.0 Safari/537.36'
   }
 })
-const _ = require('lodash')
-const mp4upload = require('../videoplayers/Mp4UploadCom')
-
-const utils = require('../utls/utils')
 
 const SERVICE_ID = 'animawka'
 const BASE_URL = 'https://animawka.pl'
@@ -35,7 +33,7 @@ const getAnimes = async () => {
           image: obj.image[i]
         })
       })
-      resolve({serviceId: SERVICE_ID, items: items})
+      resolve({ serviceId: SERVICE_ID, items: items })
     })
   })
 }
@@ -59,7 +57,7 @@ const getAnime = async (q) => {
           description: obj.description[i].replace(/\t|\n/g, '')
         })
       })
-      resolve({serviceId: SERVICE_ID, items: items})
+      resolve({ serviceId: SERVICE_ID, items: items })
     })
   })
 }
@@ -96,21 +94,12 @@ const getAnimePlayers = async (q, n) => {
         }
       })
 
-      // TODO to change !!
-      if (toDecode.length === 1) {
-        const result = await mp4upload.getVideo(toDecode[0].player)
-        returnList.push({
-          host: toDecode[0].host,
-          player: result.url
-        })
-      }
-
       resolve(returnList)
     })
   })
 }
 
-module.exports = {
+export default {
   getAnimes,
   getAnime,
   getAnimePlayers

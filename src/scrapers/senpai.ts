@@ -41,7 +41,7 @@ const getAnimes = async () => {
       })
     })
 
-    return {serviceId: SERVICE_ID, items: list}
+    return { serviceId: SERVICE_ID, items: list }
   } catch (err) {
     console.log(err)
   }
@@ -107,7 +107,7 @@ const getAnimePlayers = async (q, n) => {
   })
 }
 
-module.exports = {
+export default {
   getAnimes,
   getAnime,
   getAnimePlayers
