@@ -15,7 +15,7 @@ import compress from 'fastify-compress'
 import bearer from 'fastify-bearer-auth'
 import circuitBreaker from 'fastify-circuit-breaker'
 import cors from 'cors'
-import index from './routes/v1/'
+import index from './routes/v1'
 import news from './routes/v1/news'
 import anime from './routes/v1/anime'
 

@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify'
 import { ServerResponse, IncomingMessage } from 'http'
-import animenews from '../../../scrapers/anime24'
+import animenews from '../../../scrapers/old_anime24'
 
 export default async (fastify: FastifyInstance, opts) => {
   fastify.get('/news', opts, async (req: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) => {
