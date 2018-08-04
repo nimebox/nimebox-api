@@ -3,9 +3,9 @@ import _ from 'lodash'
 
 export default class Anime24 extends BaseScraper {
   constructor () {
-    this._baseUrl = 'http://anime24.pl'
-    this._serviceId = 'anime24'
-    super(this._baseUrl, this._serviceId)
+    super()
+    this.baseUrl = 'http://anime24.pl'
+    this.serviceId = 'anime24'
   }
 
   public async getNews (): Promise<object[]> {
