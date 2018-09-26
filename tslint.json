@@ -1,13 +1,20 @@
 {
-    "extends": "tslint-config-standard",
-    "rules": {
-        "max-line-length": false,
-        "no-unused-variable":false
-    },
-    "linterOptions": {
-        "exclude": [
-            "test/__mocks__/*",
-            "*.json"
-        ]
-    }
+  "extends": [
+    "tslint-config-airbnb"
+  ],
+  "rules": {
+    "semicolon": [
+      true,
+      "never"
+    ],
+    "max-line-length": false,
+    "variable-name": false,
+    "import-name": false,
+    "object-shorthand-properties-first": false,
+    "object-literal-key-quotes": false,
+    "quotemark": [
+      true,
+      "single"
+    ]
+  }
 }

@@ -27,7 +27,7 @@ const app: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fa
 app.register(circuitBreaker, {
   threshold: 5,
   timeout: 15000,
-  resetTimeout: 15000
+  resetTimeout: 15000,
 })
 app.register(helmet)
 app.register(compress)
@@ -39,7 +39,7 @@ app.register(index, { prefix: '/v1' })
 app.register(anime, { prefix: '/v1' })
 app.register(news, { prefix: '/v1' })
 
-app.listen(PORT, HOST, err => {
+app.listen(PORT, HOST, (err) => {
   if (err) throw err
   // @ts-ignore
   console.log(`Nimebox api is listening on ${app.server.address().address}:${app.server.address().port}`)

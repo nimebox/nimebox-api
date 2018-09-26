@@ -5,8 +5,8 @@ const _ = require('lodash')
 const api = axios.create({
   headers: {
     'Accept': 'text/html',
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3165.0 Safari/537.36'
-  }
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3165.0 Safari/537.36',
+  },
 })
 const SERVICE_ID = 'senpai'
 const BASE_URL = 'http://www.senpai.com.pl'
@@ -20,8 +20,8 @@ const getAnimes = async () => {
         title: 'div.anime-desc > span.title.anime-title',
         url: '@href',
         description: 'div.anime-desc > span.grey-text.text-lighten-1',
-        image: 'img.anime-cover@src'
-      }])
+        image: 'img.anime-cover@src',
+      }]),
     })((err, obj) => {
       if (err) {
         throw err
@@ -37,7 +37,7 @@ const getAnimes = async () => {
         title: value.title.trim(),
         url: `${BASE_URL}/${value.url}`,
         description: `${value.description}`,
-        image: `${BASE_URL}/${value.image}`
+        image: `${BASE_URL}/${value.image}`,
       })
     })
 
@@ -54,8 +54,8 @@ const getAnime = async (q) => {
       items: x('a.collection-item.anime-item', [{
         number: 'div.anime-number > h5',
         url: '@href',
-        description: 'div.anime-desc > span.grey-text.text-lighten-1'
-      }])
+        description: 'div.anime-desc > span.grey-text.text-lighten-1',
+      }]),
     })((err, obj) => {
       if (err) {
         reject(err)
@@ -68,7 +68,7 @@ const getAnime = async (q) => {
           id: value.url.split('/').pop().toLowerCase(),
           number: value.number.trim(),
           url: `${BASE_URL}/${value.url}`,
-          description: `${value.description}`
+          description: `${value.description}`,
         })
       })
 
@@ -82,7 +82,7 @@ const getAnimePlayers = async (q, n) => {
   return new Promise((resolve, reject) => {
     x(response.data, {
       host: ['div[class="container"] > ul[class="tabs"] > li[class="tab"] > a'],
-      players: ['div[class="video-container"] > iframe@src']
+      players: ['div[class="video-container"] > iframe@src'],
     })(async (err, obj) => {
       if (err) {
         reject(err)
@@ -92,7 +92,7 @@ const getAnimePlayers = async (q, n) => {
         console.log(objZiped)
         return ({
           host: objZiped[0],
-          player: objZiped[1]
+          player: objZiped[1],
         })
       })
 
@@ -110,5 +110,5 @@ const getAnimePlayers = async (q, n) => {
 export default {
   getAnimes,
   getAnime,
-  getAnimePlayers
+  getAnimePlayers,
 }

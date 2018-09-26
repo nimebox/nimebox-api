@@ -5,8 +5,8 @@ import utils from '../utils'
 const api = axios.create({
   headers: {
     'Accept': 'text/html',
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3165.0 Safari/537.36'
-  }
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3165.0 Safari/537.36',
+  },
 })
 
 const SERVICE_ID = 'animawka'
@@ -19,7 +19,7 @@ const getAnimes = async () => {
       title: ['div[class="container"] > div[class="row"] > div[class="col s12"] > div[class="card medium hide-on-large-only"] > div[class="card-image waves-effect waves-block waves-light"] > span[class="card-title boldtitle activator"]'],
       url: ['div[class="container"] > div[class="row"] > div[class="col s12"] > div[class="card medium hide-on-large-only"] > div[class="card-action"] > a@href'],
       description: ['div[class="container"] > div[class="row"] > div[class="col s12"] > div[class="card medium hide-on-large-only"] > div[class="card-reveal"] > p'],
-      image: ['div[class="container"] > div[class="row"] > div[class="col s12"] > div[class="card medium hide-on-large-only"] > div[class="card-image waves-effect waves-block waves-light"] > img@src']
+      image: ['div[class="container"] > div[class="row"] > div[class="col s12"] > div[class="card medium hide-on-large-only"] > div[class="card-image waves-effect waves-block waves-light"] > img@src'],
     })((err, obj) => {
       if (err) {
         reject(err)
@@ -30,10 +30,10 @@ const getAnimes = async () => {
           title: el,
           url: BASE_URL + obj.url[i],
           description: obj.description[i],
-          image: obj.image[i]
+          image: obj.image[i],
         })
       })
-      resolve({ serviceId: SERVICE_ID, items: items })
+      resolve({ serviceId: SERVICE_ID, items })
     })
   })
 }
@@ -42,7 +42,7 @@ const getAnime = async (q) => {
   return new Promise((resolve, reject) => {
     x(response.data, {
       url: ['div[class="col s12 m6"] > div[class="card"] > div[class="collection"] > a[class="collection-item black-text"]@href'],
-      description: ['div[class="col s12 m6"] > div[class="card"] > div[class="collection"] > a[class="collection-item black-text"]']
+      description: ['div[class="col s12 m6"] > div[class="card"] > div[class="collection"] > a[class="collection-item black-text"]'],
     })((err, obj) => {
       if (err) {
         reject(err)
@@ -54,10 +54,10 @@ const getAnime = async (q) => {
           url: BASE_URL + el,
           // number: obj.description[i].match(/[0-9]+/g)[0],
           // obj.description[i].replace(/\t|\n|(.*)\Odcinek {2}\b(.*)|-/g, ''),
-          description: obj.description[i].replace(/\t|\n/g, '')
+          description: obj.description[i].replace(/\t|\n/g, ''),
         })
       })
-      resolve({ serviceId: SERVICE_ID, items: items })
+      resolve({ serviceId: SERVICE_ID, items })
     })
   })
 }
@@ -67,7 +67,7 @@ const getAnimePlayers = async (q, n) => {
   return new Promise((resolve, reject) => {
     x(response.data, {
       host: ['div[class="card-tabs"] > ul[class="tabs tabs-fixed-width tabs-transparent"] > li[class="tab"] > a'],
-      players: ['div[class="video-container"] > iframe@src']
+      players: ['div[class="video-container"] > iframe@src'],
     })(async (err, obj) => {
       if (err) {
         reject(err)
@@ -77,7 +77,7 @@ const getAnimePlayers = async (q, n) => {
         console.log(objZiped)
         return ({
           host: objZiped[0],
-          player: objZiped[1]
+          player: objZiped[1],
         })
       })
 
@@ -102,5 +102,5 @@ const getAnimePlayers = async (q, n) => {
 export default {
   getAnimes,
   getAnime,
-  getAnimePlayers
+  getAnimePlayers,
 }

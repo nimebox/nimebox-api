@@ -1,14 +1,14 @@
-import BaseScraper from './BaseScraper'
-import _ from 'lodash'
+import BaseScraper, { IBaseScraperResponse } from './BaseScraper'
+import * as R from 'remeda'
 
 export default class Anime24 extends BaseScraper {
-  constructor () {
+  constructor() {
     super()
     this.baseUrl = 'http://anime24.pl'
     this.serviceId = 'anime24'
   }
 
-  public async getNews (): Promise<object[]> {
+  public async getNews(): Promise<IBaseScraperResponse[]> {
     try {
       const { doc } = await this.api('news.php', this.config)
       const obj = {
@@ -16,21 +16,19 @@ export default class Anime24 extends BaseScraper {
         url: [...doc.querySelectorAll('div[class="news-module"] > div[class="news"] > div[class="news-info-bar"] > div[class="news-title-bar float-left"] > div[class="news-title"] > a@href')],
         date: [...doc.querySelectorAll('div[class="news-module"] > div[class="news"] > div[class="news-info-bar"] > div[class="news-title-bar float-left"] > div[class="news-date"]')],
         description: [...doc.querySelectorAll('div[class="news-module"] > div[class="news"] > div[class="news-desc"]')],
-        image: [...doc.querySelectorAll('div[class="news-module"] > div[class="news"] > div[class="news-category-image"] > a > img@src')]
+        image: [...doc.querySelectorAll('div[class="news-module"] > div[class="news"] > div[class="news-category-image"] > a > img@src')],
       }
-      const news = _.compact(obj.title).map((el, i) => {
+      return R.compact(obj.title).map((el, i) => {
         return ({
-          title: el.textContent,
-          url: _.compact(obj.url)[i].textContent,
-          date: _.compact(obj.date)[i].textContent,
-          description: _.trim(_.compact(obj.description)[i].textContent),
-          image: _.compact(obj.image)[i].textContent
+          title: el.textContent.trim(),
+          url: obj.url[i].textContent,
+          date: obj.date[i].textContent,
+          description: obj.description[i].textContent.trim(),
+          image: obj.image[i].textContent,
         })
       })
-
-      return news
     } catch (err) {
-      return err
+      throw err
     }
   }
 
