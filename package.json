@@ -1,68 +1,69 @@
 {
-    "name": "nimebox-api",
-    "version": "0.2.0",
-    "private": true,
-    "description": "Nimebox RESTful API",
-    "main": "./dist/index",
-    "scripts": {
-        "start": "npm run serve",
-        "dev": "cross-env NODE_ENV=development npm run tslint && ts-node src/index.ts",
-        "build": "cross-env NODE_ENV=production npm run tslint && shx rm -rf dist && npm run build-ts",
-        "serve": "node ./dist/index.js",
-        "build-ts": "tsc",
-        "watch-ts": "tsc -w",
-        "lint": "tslint -c tslint.json -p tsconfig.json",
-        "test": "cross-env NODE_ENV=test jest --forceExit --verbose"
+  "name": "nimebox-api",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Nimebox RESTful API",
+  "main": "./dist/index",
+  "scripts": {
+    "start": "npm run serve",
+    "dev": "cross-env NODE_ENV=development npm run tslint && ts-node src/index.ts",
+    "build": "cross-env NODE_ENV=production npm run tslint && shx rm -rf dist && npm run build-ts",
+    "serve": "node ./dist/index.js",
+    "build-ts": "tsc",
+    "watch-ts": "tsc -w",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "test": "jest --forceExit --verbose"
+  },
+  "author": "xdk78 <xdk78888@gmail.com>",
+  "contributors": [
+    "pcpl2"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cors": "^2.8.4",
+    "fastify": "^1.12.1",
+    "fastify-bearer-auth": "^3.0.1",
+    "fastify-circuit-breaker": "^0.1.0",
+    "fastify-compress": "^0.7.0",
+    "fastify-helmet": "^2.1.0",
+    "grabbi": "^0.1.3",
+    "lodash": "^4.17.11",
+    "lokijs": "^1.5.5",
+    "node-schedule": "^1.3.0",
+    "q": "^1.5.1",
+    "qs": "^6.5.2",
+    "remeda": "^0.0.6",
+    "x-ray": "^2.3.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.2",
+    "@types/lodash": "^4.14.116",
+    "@types/node": "^10.11.0",
+    "cross-env": "^5.2.0",
+    "dotenv-safe": "^6.0.0",
+    "jest": "^23.6.0",
+    "shx": "^0.3.2",
+    "supertest": "^3.3.0",
+    "ts-jest": "^23.10.2",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.10.0",
+    "tslint-config-airbnb": "^5.11.0",
+    "typescript": "^3.0.3"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
     },
-    "author": "xdk78 <xdk78888@gmail.com>",
-    "contributors": [
-        "pcpl2"
-    ],
-    "license": "MIT",
-    "dependencies": {
-        "axios": "^0.18.0",
-        "cors": "^2.8.4",
-        "fastify": "^1.12.1",
-        "fastify-bearer-auth": "^3.0.1",
-        "fastify-circuit-breaker": "^0.1.0",
-        "fastify-compress": "^0.7.0",
-        "fastify-helmet": "^2.1.0",
-        "grabbi": "^0.1.1",
-        "lodash": "^4.17.11",
-        "lokijs": "^1.5.5",
-        "node-schedule": "^1.3.0",
-        "q": "^1.5.1",
-        "qs": "^6.5.2",
-        "remeda": "0.0.6",
-        "x-ray": "^2.3.3"
-    },
-    "devDependencies": {
-        "@types/jest": "^23.3.2",
-        "@types/lodash": "^4.14.116",
-        "@types/node": "^10.11.0",
-        "cross-env": "^5.2.0",
-        "dotenv-safe": "^6.0.0",
-        "jest": "^23.6.0",
-        "shx": "^0.3.2",
-        "supertest": "^3.3.0",
-        "ts-jest": "^23.10.2",
-        "ts-node": "^7.0.1",
-        "tslint": "^5.10.0",
-        "tslint-config-airbnb": "^5.11.0",
-        "typescript": "^3.0.3"
-    },
-    "jest": {
-        "transform": {
-            "^.+\\.tsx?$": "ts-jest"
-        },
-        "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-        "moduleFileExtensions": [
-            "ts",
-            "tsx",
-            "js",
-            "jsx",
-            "json",
-            "node"
-        ]
-    }
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  }
 }
