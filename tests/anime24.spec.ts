@@ -9,11 +9,13 @@ describe('Scraper Anime24', () => {
 
     expect(Array.isArray(news)).toBeTruthy()
     expect(news).not.toBeNull()
-    expect(news[1].title).toBeDefined()
-    expect(news[1].url).toBeDefined()
-    expect(news[1].date).toBeDefined()
-    expect(news[1].description).toBeDefined()
-    expect(news[1].image).toBeDefined()
+    news.map((el) => {
+      expect(el.title).toBeDefined()
+      expect(el.url).toBeDefined()
+      expect(el.date).toBeDefined()
+      expect(el.description).toBeDefined()
+      expect(el.image).toBeDefined()
+    })
 
   })
 })

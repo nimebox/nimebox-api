@@ -1,15 +1,17 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify'
 import { ServerResponse, IncomingMessage } from 'http'
-import animenews from '../../../scrapers/old_anime24'
+import Anime24 from '../../../scrapers/Anime24'
+
+const animeNews = new Anime24()
 
 export default async (fastify: FastifyInstance, opts) => {
   fastify.get('/news', opts, async (req: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) => {
     reply.header('Content-Type', 'application/json').code(200)
     try {
-      const res = await animenews()
-      reply.send(res)
+      const res = await animeNews.getNews()
+      return res
     } catch (err) {
-      reply.send(err)
+      return err
     }
   })
 
