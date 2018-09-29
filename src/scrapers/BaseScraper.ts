@@ -9,6 +9,11 @@ export interface IBaseScraperResponse {
   image?: string
 }
 
+export interface IBasePlayerResponse {
+  host: string
+  player: string
+}
+
 export default abstract class BaseScraper {
   private _serviceId: string
   private _baseUrl: string

@@ -1,4 +1,4 @@
-import BaseScraper, { IBaseScraperResponse } from './BaseScraper'
+import BaseScraper, { IBaseScraperResponse, IBasePlayerResponse } from './BaseScraper'
 
 export default class Animawka extends BaseScraper {
   constructor() {
@@ -19,7 +19,7 @@ export default class Animawka extends BaseScraper {
       return obj.title.map((el, i) => {
         return ({
           title: el.textContent.trim(),
-          url: obj.url[i].getAttribute('href'),
+          url: `${this.baseUrl}${obj.url[i].getAttribute('href')}`,
           image: obj.image[i].getAttribute('src'),
         })
       })
@@ -38,13 +38,31 @@ export default class Animawka extends BaseScraper {
       }
       return obj.title.map((el, i) => {
         return ({
-          title: el.textContent.trim(),
-          url: el.getAttribute('href'),
+          title: el.textContent.replace(/\t|\n/g, ''),
+          url: `${this.baseUrl}${obj.url[i].getAttribute('href')}`,
         })
       })
     } catch (err) {
       throw err
     }
   }
+  // TODO: fix null array response
+  public async getPlayers(animeTitle: string, episodeNumber: string | number): Promise<IBasePlayerResponse[]> {
+    try {
+      const { doc } = await this.api(`anime/${animeTitle}/${episodeNumber}`)
 
+      const obj = {
+        host: [...doc.querySelectorAll('div[class="card-tabs"] > ul[class="tabs tabs-fixed-width tabs-transparent"] > li[class="tab"] > a')],
+        players: [...doc.querySelectorAll('div[class="video-container"] > iframe[src]')],
+      }
+      return obj.host.map((el, i) => {
+        return ({
+          host: el.textContent.trim(),
+          player: obj.players[i].getAttribute('src'),
+        })
+      })
+    } catch (err) {
+      throw err
+    }
+  }
 }
