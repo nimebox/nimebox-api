@@ -9,9 +9,11 @@ export default async (fastify: FastifyInstance, opts) => {
     reply.header('Content-Type', 'application/json').code(200)
     try {
       const res = await animeNews.getNews()
-      return res
+      return {
+        data: res,
+      }
     } catch (err) {
-      return err
+      throw err
     }
   })
 

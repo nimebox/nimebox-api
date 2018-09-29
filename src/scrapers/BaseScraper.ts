@@ -22,19 +22,19 @@ export default abstract class BaseScraper {
     }
   }
 
-  protected get baseUrl(): string {
+  public get baseUrl(): string {
     return this._baseUrl
   }
 
-  protected set baseUrl(value: string) {
+  public set baseUrl(value: string) {
     this._baseUrl = value
   }
 
-  protected get serviceId(): string {
+  public get serviceId(): string {
     return this._serviceId
   }
 
-  protected set serviceId(value: string) {
+  public set serviceId(value: string) {
     this._serviceId = value
   }
 

@@ -16,4 +16,16 @@ describe('Scraper Animawka', () => {
     })
 
   })
+  it('should respond with one anime', async () => {
+    const animeTitle = 'Nanatsu_no_Taizai:_Imashime_no_Fukkatsu'
+    const anime = await animawka.getAnime(animeTitle)
+
+    expect(Array.isArray(anime)).toBeTruthy()
+    expect(anime).not.toBeNull()
+    anime.map((el) => {
+      expect(el.title).toBeDefined()
+      expect(el.url).toBeDefined()
+    })
+
+  })
 })

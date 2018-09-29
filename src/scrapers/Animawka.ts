@@ -28,4 +28,23 @@ export default class Animawka extends BaseScraper {
     }
   }
 
+  public async getAnime(animeTitle: string): Promise<IBaseScraperResponse[]> {
+    try {
+      const { doc } = await this.api(`anime/${animeTitle}`)
+
+      const obj = {
+        title: [...doc.querySelectorAll('div[class="col s12 m6"] > div[class="card"] > div[class="collection"] > a[class="collection-item black-text"]')],
+        url: [...doc.querySelectorAll('div[class="col s12 m6"] > div[class="card"] > div[class="collection"] > a[class="collection-item black-text"][href]')],
+      }
+      return obj.title.map((el, i) => {
+        return ({
+          title: el.textContent.trim(),
+          url: el.getAttribute('href'),
+        })
+      })
+    } catch (err) {
+      throw err
+    }
+  }
+
 }
