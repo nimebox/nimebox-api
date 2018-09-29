@@ -19,8 +19,8 @@ import index from './routes/v1'
 import news from './routes/v1/news'
 import anime from './routes/v1/anime'
 
-const PORT = Number(process.env.API_PORT) || 5000
-const HOST = process.env.API_HOST || '0.0.0.0'
+const PORT = Number(process.env.PORT) || 5000
+const HOST = process.env.HOST || '0.0.0.0'
 const keys = new Set([process.env.API_BEARER_SECRET_TOKEN])
 
 const app: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify()
