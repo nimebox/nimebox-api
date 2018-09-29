@@ -1,7 +1,7 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify'
 import { ServerResponse, IncomingMessage } from 'http'
 import senpai from '../../../scrapers/senpai'
-import animawka from '../../../scrapers/animawka'
+import animawka from '../../../scrapers/animawka_old'
 import onanime from '../../../scrapers/onanime'
 
 export default async (fastify: FastifyInstance, opts) => {
