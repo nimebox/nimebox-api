@@ -46,19 +46,19 @@ export default class Animawka extends BaseScraper {
       throw err
     }
   }
-  // TODO: fix null array response
+
   public async getPlayers(animeTitle: string, episodeNumber: string | number): Promise<IBasePlayerResponse[]> {
     try {
       const { doc } = await this.api(`anime/${animeTitle}/${episodeNumber}`)
 
       const obj = {
-        host: [...doc.querySelectorAll('div[class="card-tabs"] > ul[class="tabs tabs-fixed-width tabs-transparent"] > li[class="tab"] > a')],
-        players: [...doc.querySelectorAll('div[class="video-container"] > iframe[src]')],
+        host: [...doc.querySelectorAll('div[class="card-tabs"] > ul[class="tabs tabs-fixed-width tabs-transparent"] > li[class="tab openPlayer"] > a')],
+        players: [...doc.querySelectorAll('div[class="card-tabs"] > ul[class="tabs tabs-fixed-width tabs-transparent"] > li[class="tab openPlayer"][data]')],
       }
       return obj.host.map((el, i) => {
         return ({
           host: el.textContent.trim(),
-          player: obj.players[i].getAttribute('src'),
+          player: obj.players[i].getAttribute('data'),
         })
       })
     } catch (err) {

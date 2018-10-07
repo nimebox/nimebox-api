@@ -12,7 +12,7 @@
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
     "lint": "tslint -c tslint.json -p tsconfig.json",
-    "test": "cross-env NODE_ENV=test jest --forceExit --verbose"
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
   },
   "author": "xdk78 <xdk78888@gmail.com>",
   "contributors": [

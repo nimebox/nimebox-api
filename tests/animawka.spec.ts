@@ -29,15 +29,15 @@ describe('Scraper Animawka', () => {
     })
 
   })
-  // it('should respond with players for anime', async () => {
-  //   const players = await animawka.getPlayers(animeTitle, 1)
+  it('should respond with players for anime', async () => {
+    const players = await animawka.getPlayers(animeTitle, 1)
 
-  //   expect(Array.isArray(players)).toBeTruthy()
-  //   expect(players).not.toBeNull()
-  //   players.map((el) => {
-  //     expect(el.host).toBeDefined()
-  //     expect(el.player).toBeDefined()
-  //   })
+    expect(Array.isArray(players)).toBeTruthy()
+    expect(players).not.toBeNull()
+    players.map((el) => {
+      expect(el.host).toBeDefined()
+      expect(el.player).toBeDefined()
+    })
 
-  // })
+  })
 })
