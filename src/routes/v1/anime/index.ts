@@ -67,12 +67,12 @@ export default async (fastify: FastifyInstance, opts) => {
       try {
         let res
         switch (req.query.provider) {
-          // case 'animawka':
-          //   res = {
-          //     serviceId: animawka.serviceId,
-          //     data: await animawka.getPlayers(req.params.q, req.params.n),
-          //   }
-          //   break
+          case 'animawka':
+            res = {
+              serviceId: animawka.serviceId,
+              data: await animawka.getPlayers(req.params.q, req.params.n),
+            }
+            break
           case 'onanime':
             res = await onanime.getAnimePlayers(req.params.q, req.params.n)
             break
@@ -87,6 +87,4 @@ export default async (fastify: FastifyInstance, opts) => {
       }
     }
   })
-
-  return
 }

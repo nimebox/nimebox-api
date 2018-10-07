@@ -18,7 +18,6 @@ describe('Scraper Animawka', () => {
 
   })
   it('should respond with one anime', async () => {
-
     const anime = await animawka.getAnime(animeTitle)
 
     expect(Array.isArray(anime)).toBeTruthy()
@@ -29,7 +28,7 @@ describe('Scraper Animawka', () => {
     })
 
   })
-  it('should respond with players for anime', async () => {
+  it('should respond with players for one anime', async () => {
     const players = await animawka.getPlayers(animeTitle, 1)
 
     expect(Array.isArray(players)).toBeTruthy()
