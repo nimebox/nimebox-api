@@ -10,6 +10,7 @@ export default async (fastify: FastifyInstance, opts) => {
     try {
       const res = await animeNews.getNews()
       return {
+        serviceId: animeNews.serviceId,
         data: res,
       }
     } catch (err) {
