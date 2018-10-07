@@ -1,10 +1,11 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify'
 import { ServerResponse, IncomingMessage } from 'http'
-import senpai from '../../../scrapers/senpai'
+import Senpai from '../../../scrapers/Senpai'
 import Animawka from '../../../scrapers/Animawka'
 import onanime from '../../../scrapers/onanime'
 
 const animawka = new Animawka()
+const senpai = new Senpai()
 
 export default async (fastify: FastifyInstance, opts) => {
   fastify.get('/anime', opts, async (req: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) => {
@@ -23,8 +24,10 @@ export default async (fastify: FastifyInstance, opts) => {
           break
         case 'senpai':
         default:
-          res = await senpai.getAnimes()
-          break
+          res = {
+            serviceId: senpai.serviceId,
+            data: await senpai.getAnimeList(),
+          }
       }
       return res
     } catch (err) {
@@ -50,8 +53,10 @@ export default async (fastify: FastifyInstance, opts) => {
             break
           case 'senpai':
           default:
-            res = await senpai.getAnime(req.params.q)
-            break
+            res = {
+              serviceId: senpai.serviceId,
+              data: await senpai.getAnime(req.params.q),
+            }
         }
         return res
       } catch (err) {
@@ -78,8 +83,10 @@ export default async (fastify: FastifyInstance, opts) => {
             break
           case 'senpai':
           default:
-            res = await senpai.getAnimePlayers(req.params.q, req.params.n)
-            break
+            res = {
+              serviceId: senpai.serviceId,
+              data: await senpai.getPlayers(req.params.q, req.params.n),
+            }
         }
         return res
       } catch (err) {

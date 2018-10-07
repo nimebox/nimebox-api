@@ -30,7 +30,7 @@ export default class Animawka extends BaseScraper {
 
   public async getAnime(animeTitle: string): Promise<IBaseScraperResponse[]> {
     try {
-      const { doc } = await this.api(`anime/${animeTitle}`)
+      const { doc } = await this.api(`anime/${encodeURIComponent(animeTitle)}`)
 
       const obj = {
         title: [...doc.querySelectorAll('div[class="col s12 m6"] > div[class="card"] > div[class="collection"] > a[class="collection-item black-text"]')],
@@ -49,7 +49,7 @@ export default class Animawka extends BaseScraper {
 
   public async getPlayers(animeTitle: string, episodeNumber: string | number): Promise<IBasePlayerResponse[]> {
     try {
-      const { doc } = await this.api(`anime/${animeTitle}/${episodeNumber}`)
+      const { doc } = await this.api(`anime/${encodeURIComponent(animeTitle)}/${encodeURIComponent(episodeNumber.toString())}`)
 
       const obj = {
         host: [...doc.querySelectorAll('div[class="card-tabs"] > ul[class="tabs tabs-fixed-width tabs-transparent"] > li[class="tab openPlayer"] > a')],
