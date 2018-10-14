@@ -3,9 +3,9 @@ const getDomainName = (url) => {
   return regex.exec(url)[1].toLowerCase()
 }
 
-const wait = (ms) => new Promise((resolve, reject) => setTimeout(resolve, ms))
+const wait = ms => new Promise((resolve, reject) => setTimeout(resolve, ms))
 
-module.exports = {
+export default {
   getDomainName,
-  wait
+  wait,
 }
