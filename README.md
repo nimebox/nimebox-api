@@ -1,12 +1,11 @@
-# Nimebox-api 
+# nimebox-api
 
-<img src="https://img.shields.io/github/license/Nimebox/Nimebox-api.svg?style=for-the-badge" alt="GitHub"/> <a href="https://github.com/Nimebox/Nimebox-api/issues"><img src="https://img.shields.io/github/issues/Nimebox/Nimebox-api.svg?style=for-the-badge" alt="GitHub issues" /></a>
-<img src="https://img.shields.io/travis/Nimebox/Nimebox-api.svg?style=for-the-badge" alt="Travis build" /></a>
-
+<img src="https://img.shields.io/github/license/nimebox/nimebox-api.svg?style=for-the-badge" alt="GitHub"/> <a href="https://github.com/nimebox/nimebox-api/issues"><img src="https://img.shields.io/github/issues/nimebox/nimebox-api.svg?style=for-the-badge" alt="GitHub issues" /></a>
+<img src="https://img.shields.io/travis/nimebox/nimebox-api.svg?style=for-the-badge" alt="Travis build" /></a>
 
 # ✋ Contributing
 
-If you want to help with the project, you can have a look at some [issues](https://github.com/Nimebox/Nimebox-api/issues). All help is much appreciated 🍻
+If you want to help with the project, you can have a look at some [issues](https://github.com/nimebox/nimebox-api/issues). All help is much appreciated 🍻
 
 # 🏃 Running application
 
@@ -16,41 +15,40 @@ If you want to help with the project, you can have a look at some [issues](https
 
 ### 🤘 Let's start
 
-- Clone repo</br>
-   - Via https
-    ```
-    git clone https://github.com/Nimebox/Nimebox-api.git
-    ```
+- Clone repo
+    - Via https
+        ```bash
+        git clone https://github.com/nimebox/nimebox-api.git
+        ```
    - Via ssh
-    ```
-    git clone git@github.com:Nimebox/Nimebox-api.git
-    ```
+        ```bash
+        git clone git@github.com:nimebox/nimebox-api.git
+        ```
 
 - Now enter to app dir
-  ```
-  cd Nimebox-api
-  ```
+    ```bash
+    cd nimebox-api
+    ```
 - Install depedencies
-  ```
-  npm i
-  ```
+    ```bash
+    npm i
+    ```
 - Running application
-  ```
-  npm run dev
-  ```
+    ```bash
+    npm run dev
+    ```
 - Running application in production mode
-  ```
-  npm run build && npm start
-  ```
+    ```bash
+    npm run build && npm start
+    ```
 - Running linter
-  ```
-  npm run lint
-  ```
+    ```bash
+    npm run lint
+    ```
 - Running tests
-  ```
-  npm test
-  ```
-
+    ```bash
+    npm test
+    ```
 
 # 📜 License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
