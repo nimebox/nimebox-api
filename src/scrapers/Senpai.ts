@@ -1,6 +1,6 @@
 import BaseScraper, { IBaseScraperResponse, IBasePlayerResponse } from './BaseScraper'
 
-export default class Senpai extends BaseScraper {
+export default class SenpaiScraper extends BaseScraper {
   constructor() {
     super()
     this.baseUrl = 'https://senpai.com.pl'

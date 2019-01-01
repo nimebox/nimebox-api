@@ -1,15 +1,17 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify'
 import { ServerResponse, IncomingMessage } from 'http'
-import Senpai from '../../../scrapers/Senpai'
+import SenpaiScraper from '../../../scrapers/Senpai'
 import onanime from '../../../scrapers/onanime'
 
-const senpai = new Senpai()
+const senpai = new SenpaiScraper()
+
+type AnimeRespone = { serviceId?: string; data?: any[]; }
 
 export default async (fastify: FastifyInstance, opts) => {
   fastify.get('/anime', opts, async (req: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) => {
     reply.header('Content-Type', 'application/json').code(200)
     try {
-      let res
+      let res: AnimeRespone
       switch (req.query.provider) {
         case 'onanime':
           res = await onanime.getAnimes()
@@ -32,7 +34,7 @@ export default async (fastify: FastifyInstance, opts) => {
       throw new Error('Missing q param')
     } else {
       try {
-        let res
+        let res: AnimeRespone
         switch (req.query.provider) {
           case 'onanime':
             res = await onanime.getAnime(req.params.q)
@@ -56,7 +58,7 @@ export default async (fastify: FastifyInstance, opts) => {
       throw new Error('Missing q and n param')
     } else {
       try {
-        let res
+        let res: AnimeRespone
         switch (req.query.provider) {
           case 'onanime':
             res = await onanime.getAnimePlayers(req.params.q, req.params.n)
