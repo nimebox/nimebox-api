@@ -7,7 +7,7 @@
   "scripts": {
     "start": "npm run build && npm run serve",
     "dev": "cross-env NODE_ENV=development npm run lint && ts-node src/index.ts",
-    "build": "cross-env NODE_ENV=production npm run lint && shx rm -rf dist && npm run build-ts",
+    "build": "cross-env NODE_ENV=production shx rm -rf dist && npm run build-ts",
     "serve": "node ./dist/index.js",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
@@ -22,6 +22,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "cors": "^2.8.5",
+    "cross-env": "^5.2.0",
     "fastify": "^1.13.3",
     "fastify-bearer-auth": "^3.0.1",
     "fastify-circuit-breaker": "^0.1.0",
@@ -40,7 +41,6 @@
     "@types/jest": "^23.3.11",
     "@types/lodash": "^4.14.119",
     "@types/node": "^10.12.18",
-    "cross-env": "^5.2.0",
     "dotenv-safe": "^6.1.0",
     "jest": "^23.6.0",
     "shx": "^0.3.2",
