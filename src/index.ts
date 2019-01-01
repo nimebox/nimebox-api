@@ -16,7 +16,7 @@ import bearer from 'fastify-bearer-auth'
 import circuitBreaker from 'fastify-circuit-breaker'
 import cors from 'cors'
 import index from './routes/v1'
-import news from './routes/v1/news'
+// import news from './routes/v1/news'
 import anime from './routes/v1/anime'
 
 const PORT = Number(process.env.PORT) || 5000
@@ -37,7 +37,7 @@ app.use(cors())
 // API Routing
 app.register(index, { prefix: '/v1' })
 app.register(anime, { prefix: '/v1' })
-app.register(news, { prefix: '/v1' })
+// app.register(news, { prefix: '/v1' })
 
 app.listen(PORT, HOST, (err) => {
   if (err) throw err
