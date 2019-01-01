@@ -1,10 +1,8 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify'
 import { ServerResponse, IncomingMessage } from 'http'
 import Senpai from '../../../scrapers/Senpai'
-import Animawka from '../../../scrapers/Animawka'
 import onanime from '../../../scrapers/onanime'
 
-const animawka = new Animawka()
 const senpai = new Senpai()
 
 export default async (fastify: FastifyInstance, opts) => {
@@ -13,12 +11,6 @@ export default async (fastify: FastifyInstance, opts) => {
     try {
       let res
       switch (req.query.provider) {
-        case 'animawka':
-          res = {
-            serviceId: animawka.serviceId,
-            data: await animawka.getAnimeList(),
-          }
-          break
         case 'onanime':
           res = await onanime.getAnimes()
           break
@@ -42,12 +34,6 @@ export default async (fastify: FastifyInstance, opts) => {
       try {
         let res
         switch (req.query.provider) {
-          case 'animawka':
-            res = {
-              serviceId: animawka.serviceId,
-              data: await animawka.getAnime(req.params.q),
-            }
-            break
           case 'onanime':
             res = await onanime.getAnime(req.params.q)
             break
@@ -72,12 +58,6 @@ export default async (fastify: FastifyInstance, opts) => {
       try {
         let res
         switch (req.query.provider) {
-          case 'animawka':
-            res = {
-              serviceId: animawka.serviceId,
-              data: await animawka.getPlayers(req.params.q, req.params.n),
-            }
-            break
           case 'onanime':
             res = await onanime.getAnimePlayers(req.params.q, req.params.n)
             break
