@@ -8,11 +8,10 @@ export default async (fastify: FastifyInstance, opts) => {
       const res = {}
       return {
         serviceId: 'animeNews.serviceId',
-        data: res,
+        data: res
       }
     } catch (err) {
       throw err
     }
   })
-
 }

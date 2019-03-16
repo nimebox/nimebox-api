@@ -22,8 +22,9 @@ export default abstract class BaseScraper {
   constructor() {
     this.config = {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3165.0 Safari/537.36',
-      },
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3165.0 Safari/537.36'
+      }
     }
   }
 
@@ -43,8 +44,7 @@ export default abstract class BaseScraper {
     this._serviceId = value
   }
 
-  protected async api(endpoint: string) {
-    return await grabbi(`${this.baseUrl}/${endpoint}`, this.config)
+  protected async api(endpoint: string, config?: AxiosRequestConfig) {
+    return await grabbi(`${this.baseUrl}/${endpoint}`, Object.assign(this.config, config))
   }
-
 }
