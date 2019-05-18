@@ -7,7 +7,7 @@ export default class Anime24 extends BaseScraper {
     this.serviceId = 'anime24'
   }
 
-  public async getNews(): Promise<IBaseScraperResponse[] | any> {
+  public async getNews(): Promise<IBaseScraperResponse[]> {
     try {
       const { doc } = await this.api('news')
 
