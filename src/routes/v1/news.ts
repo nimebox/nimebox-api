@@ -1,10 +1,15 @@
 import Koa from 'koa'
 import { createApp } from '../..'
+import Anime24 from '../../scrapers/Anime24'
 
 async function main(ctx: Koa.Context, next: Function) {
+  const animeNews = new Anime24()
+  const res = await animeNews.getNews()
+
   ctx.status = 200
   ctx.body = {
-    message: `Api say Hello`
+    serviceId: animeNews.serviceId,
+    data: res
   }
 }
 
