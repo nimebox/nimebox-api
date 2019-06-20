@@ -1,6 +1,6 @@
 import BaseScraper, { IBaseScraperResponse, IBasePlayerResponse } from './BaseScraper'
 import axios from 'axios'
-import axiosCookieJarSupport from '@3846masa/axios-cookiejar-support'
+import axiosCookieJarSupport from 'axios-cookiejar-support'
 import tough from 'tough-cookie'
 import qs from 'qs'
 import { JSDOM } from 'jsdom'

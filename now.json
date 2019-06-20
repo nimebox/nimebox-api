@@ -31,7 +31,7 @@
       "src": "/v1/anime",
       "dest": "src/routes/v1/anime/all.ts",
       "headers": {
-        "Cache-Control": "s-maxage=86400"
+        "Cache-Control": "max-age=300, s-maxage=86400"
       }
     },
     {
@@ -46,14 +46,14 @@
       "src": "/v1/news",
       "dest": "src/routes/v1/news.ts",
       "headers": {
-        "Cache-Control": "s-maxage=86400"
+        "Cache-Control": "max-age=300, s-maxage=86400"
       }
     },
     {
       "src": "/(.*)",
       "dest": "src/routes/v1/index.ts",
       "headers": {
-        "Cache-Control": "s-maxage=31536000"
+        "Cache-Control": "max-age=0, s-maxage=31536000"
       }
     }
   ]
