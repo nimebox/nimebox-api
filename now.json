@@ -1,0 +1,60 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/routes/v1/anime/all.ts",
+      "use": "@now/node",
+      "config": { "maxLambdaSize": "50mb" }
+    },
+    {
+      "src": "src/routes/v1/anime/one.ts",
+      "use": "@now/node",
+      "config": { "maxLambdaSize": "50mb" }
+    },
+    {
+      "src": "src/routes/v1/anime/episode.ts",
+      "use": "@now/node",
+      "config": { "maxLambdaSize": "50mb" }
+    },
+    {
+      "src": "src/routes/v1/news.ts",
+      "use": "@now/node",
+      "config": { "maxLambdaSize": "50mb" }
+    },
+    {
+      "src": "src/routes/v1/index.ts",
+      "use": "@now/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/v1/anime",
+      "dest": "src/routes/v1/anime/all.ts",
+      "headers": {
+        "Cache-Control": "max-age=300, s-maxage=86400"
+      }
+    },
+    {
+      "src": "/v1/anime/(?<q>[^/]+)$",
+      "dest": "src/routes/v1/anime/one.ts?q=$q"
+    },
+    {
+      "src": "/v1/anime/(?<q>[^/]+)/(?<n>[^/]+)$",
+      "dest": "src/routes/v1/anime/episode.ts?q=$q&n=$n"
+    },
+    {
+      "src": "/v1/news",
+      "dest": "src/routes/v1/news.ts",
+      "headers": {
+        "Cache-Control": "max-age=300, s-maxage=86400"
+      }
+    },
+    {
+      "src": "/(.*)",
+      "dest": "src/routes/v1/index.ts",
+      "headers": {
+        "Cache-Control": "max-age=0, s-maxage=31536000"
+      }
+    }
+  ]
+}
