@@ -3,10 +3,12 @@ import { createApp } from '../../..'
 import SenpaiScraper from '../../../scrapers/Senpai'
 import onanime from '../../../scrapers/onanime'
 import AnimeZoneScraper from '../../../scrapers/Animezone'
+import HorribleSubsScraper from '../../../scrapers/HorribleSubs'
 import { AnimeRespone } from './all'
 
 const senpai = new SenpaiScraper()
 const animezone = new AnimeZoneScraper()
+const horriblesubs = new HorribleSubsScraper()
 
 async function main(ctx: Koa.Context) {
   if (!ctx.query || !ctx.query.q) {
@@ -21,6 +23,12 @@ async function main(ctx: Koa.Context) {
         res = {
           serviceId: animezone.serviceId,
           data: await animezone.getAnime(ctx.query.q)
+        }
+        break
+      case 'horriblesubs':
+        res = {
+          serviceId: horriblesubs.serviceId,
+          data: await horriblesubs.getAnime(ctx.query.q),
         }
         break
       case 'senpai':
