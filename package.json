@@ -71,5 +71,8 @@
       "json",
       "node"
     ]
+  },
+  "engines": {
+    "node": ">=10"
   }
 }
