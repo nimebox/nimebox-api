@@ -4,7 +4,7 @@ import SenpaiScraper from '../../../scrapers/Senpai'
 import onanime from '../../../scrapers/onanime'
 import AnimeZoneScraper from '../../../scrapers/Animezone'
 import HorribleSubsScraper from '../../../scrapers/HorribleSubs'
-import { AnimeRespone } from './all'
+import { AnimeRespone } from '../../../utils'
 
 const senpai = new SenpaiScraper()
 const animezone = new AnimeZoneScraper()

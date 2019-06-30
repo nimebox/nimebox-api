@@ -3,11 +3,10 @@ import { createApp } from '../../..'
 import SenpaiScraper from '../../../scrapers/Senpai'
 import HorribleSubsScraper from '../../../scrapers/HorribleSubs'
 import onanime from '../../../scrapers/onanime'
+import { AnimeRespone } from '../../../utils'
 
 const senpai = new SenpaiScraper()
 const horriblesubs = new HorribleSubsScraper()
-
-export type AnimeRespone = { serviceId?: string; data?: any[] }
 
 async function main(ctx: Koa.Context) {
   let res: AnimeRespone
@@ -19,6 +18,7 @@ async function main(ctx: Koa.Context) {
     case 'horriblesubs':
       res = {
         serviceId: horriblesubs.serviceId,
+        lang: horriblesubs.lang,
         data: await horriblesubs.getAnimeList()
       }
       break
@@ -26,6 +26,7 @@ async function main(ctx: Koa.Context) {
     default:
       res = {
         serviceId: senpai.serviceId,
+        lang: senpai.lang,
         data: await senpai.getAnimeList()
       }
   }

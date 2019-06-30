@@ -5,6 +5,12 @@ const getDomainName = url => {
 
 const wait = (ms: number) => new Promise((resolve, reject) => setTimeout(resolve, ms))
 
+export type AnimeRespone = {
+  serviceId?: string
+  lang?: string
+  data?: any[]
+}
+
 export default {
   getDomainName,
   wait

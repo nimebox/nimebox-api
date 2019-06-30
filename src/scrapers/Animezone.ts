@@ -2,7 +2,6 @@ import BaseScraper, { IBaseScraperResponse, IBasePlayerResponse } from './BaseSc
 import axios from 'axios'
 import axiosCookieJarSupport from 'axios-cookiejar-support'
 import tough from 'tough-cookie'
-import qs from 'qs'
 import { JSDOM } from 'jsdom'
 
 const cookieJar = new tough.CookieJar()
@@ -21,6 +20,7 @@ export default class AnimeZoneScraper extends BaseScraper {
     super()
     this.baseUrl = 'https://www.animezone.pl'
     this.serviceId = 'animezone'
+    this.lang = 'pl'
   }
 
   public async getAnime(animeTitle: string): Promise<IBaseScraperResponse[]> {

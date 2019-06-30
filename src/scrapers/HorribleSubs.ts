@@ -7,6 +7,7 @@ export default class HorribleSubsScraper extends BaseScraper {
     super()
     this.baseUrl = 'https://horriblesubs.info'
     this.serviceId = 'horriblesubs'
+    this.lang = 'en'
   }
 
   public async getAnimeList(): Promise<any[]> {

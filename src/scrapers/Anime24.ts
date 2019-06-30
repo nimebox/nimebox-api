@@ -5,6 +5,7 @@ export default class Anime24 extends BaseScraper {
     super()
     this.baseUrl = 'https://anime24.pl'
     this.serviceId = 'anime24'
+    this.lang = 'pl'
   }
 
   public async getNews(): Promise<IBaseScraperResponse[]> {

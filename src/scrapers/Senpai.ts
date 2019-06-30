@@ -5,6 +5,7 @@ export default class SenpaiScraper extends BaseScraper {
     super()
     this.baseUrl = 'https://senpai.com.pl'
     this.serviceId = 'senpai'
+    this.lang = 'pl'
   }
 
   public async getAnimeList(): Promise<any[]> {

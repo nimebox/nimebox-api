@@ -17,6 +17,7 @@ export interface IBasePlayerResponse {
 export default abstract class BaseScraper {
   private _serviceId: string
   private _baseUrl: string
+  private _lang: string
   protected config: AxiosRequestConfig
 
   constructor() {
@@ -42,6 +43,14 @@ export default abstract class BaseScraper {
 
   public set serviceId(value: string) {
     this._serviceId = value
+  }
+
+  public get lang(): string {
+    return this._lang
+  }
+
+  public set lang(value: string) {
+    this._lang = value
   }
 
   protected async api(endpoint: string, config?: AxiosRequestConfig) {
