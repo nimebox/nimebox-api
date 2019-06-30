@@ -4,7 +4,7 @@ import HorribleSubsScraper from '../src/scrapers/HorribleSubs'
 const horrible = new HorribleSubsScraper()
 const animeTitle = 'Sewayaki Kitsune no Senko-san'
 
-describe('HorribleSubs scraper', () => {
+describe('Scraper HorribleSubs', () => {
   it('should respond with anime list', async () => {
     const animeList = await horrible.getAnimeList()
     

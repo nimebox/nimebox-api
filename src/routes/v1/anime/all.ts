@@ -2,11 +2,13 @@ import Koa from 'koa'
 import { createApp } from '../../..'
 import SenpaiScraper from '../../../scrapers/Senpai'
 import HorribleSubsScraper from '../../../scrapers/HorribleSubs'
+import OkamiSubsScraper from '../../../scrapers/OkamiSubs'
 import onanime from '../../../scrapers/onanime'
 import { AnimeRespone } from '../../../utils'
 
 const senpai = new SenpaiScraper()
 const horriblesubs = new HorribleSubsScraper()
+const okamisubs = new OkamiSubsScraper()
 
 async function main(ctx: Koa.Context) {
   let res: AnimeRespone
@@ -20,6 +22,13 @@ async function main(ctx: Koa.Context) {
         serviceId: horriblesubs.serviceId,
         lang: horriblesubs.lang,
         data: await horriblesubs.getAnimeList()
+      }
+      break
+    case 'okamisubs':
+      res = {
+        serviceId: okamisubs.serviceId,
+        lang: okamisubs.lang,
+        data: await okamisubs.getAnimeList()
       }
       break
     case 'senpai':
