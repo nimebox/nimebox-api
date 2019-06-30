@@ -19,7 +19,7 @@ const api = axios.create({
   }
 })
 
-const getAnimes = async () => {
+const getAnimeList = async () => {
   let fullList = []
   const form = {
     strona: 1,
@@ -186,7 +186,7 @@ const runAndParsePlayersPage = async data => {
     })
   })
 }
-const getAnimePlayers = async (q, n) => {
+const getPlayers = async (q, n) => {
   const response = await api.get(`/anime/${q}/${n}`)
   return new Promise((resolve, reject) => {
     xray(response.data, {
@@ -222,7 +222,7 @@ const getAnimePlayers = async (q, n) => {
 }
 
 export default {
-  getAnimes,
+  getAnimeList,
   getAnime,
-  getAnimePlayers
+  getPlayers
 }

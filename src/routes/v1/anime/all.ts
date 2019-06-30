@@ -14,12 +14,12 @@ async function main(ctx: Koa.Context) {
 
   switch (ctx.query.provider) {
     case 'onanime':
-      res = await onanime.getAnimes()
+      res = await onanime.getAnimeList()
       break
     case 'horriblesubs':
       res = {
         serviceId: horriblesubs.serviceId,
-        data: await horriblesubs.getAnimeList(),
+        data: await horriblesubs.getAnimeList()
       }
       break
     case 'senpai':

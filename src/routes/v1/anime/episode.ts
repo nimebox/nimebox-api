@@ -15,7 +15,7 @@ async function main(ctx: Koa.Context) {
     let res: AnimeRespone
     switch (ctx.query.provider) {
       case 'onanime':
-        res = await onanime.getAnimePlayers(ctx.query.q, ctx.query.n)
+        res = await onanime.getPlayers(ctx.query.q, ctx.query.n)
         break
       case 'animezone':
         res = {

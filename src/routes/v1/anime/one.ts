@@ -28,7 +28,7 @@ async function main(ctx: Koa.Context) {
       case 'horriblesubs':
         res = {
           serviceId: horriblesubs.serviceId,
-          data: await horriblesubs.getAnime(ctx.query.q),
+          data: await horriblesubs.getAnime(ctx.query.q)
         }
         break
       case 'senpai':

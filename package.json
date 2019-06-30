@@ -14,7 +14,8 @@
   },
   "author": "xdk78 <xdk78888@gmail.com>",
   "contributors": [
-    "pcpl2"
+    "pcpl2",
+    "rnickson"
   ],
   "license": "MIT",
   "dependencies": {
@@ -36,12 +37,12 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.15",
-    "@types/jsdom": "^12.2.3",
+    "@types/jsdom": "^12.2.4",
     "@types/koa": "^2.0.48",
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa-logger": "^3.1.1",
-    "@types/lodash": "^4.14.134",
-    "@types/node": "^12.0.8",
+    "@types/lodash": "^4.14.135",
+    "@types/node": "^12.0.10",
     "@types/qs": "^6.5.3",
     "dotenv-safe": "^6.1.0",
     "jest": "^24.8.0",
@@ -51,7 +52,7 @@
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
     "ts-node-dev": "^1.0.0-pre.40",
-    "tslint": "^5.17.0",
+    "tslint": "^5.18.0",
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.5.2"
