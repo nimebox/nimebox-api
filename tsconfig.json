@@ -9,13 +9,11 @@
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "isolatedModules": true,
     "resolveJsonModule": true,
     "outDir": "./dist",
     "lib": ["esnext", "dom", "dom.iterable"],
-    "baseUrl": ".",
-    "paths": {
-      "*": ["node_modules/*"]
-    }
+    "baseUrl": "."
   },
   "include": ["src/**/*", "test/**/*"]
 }

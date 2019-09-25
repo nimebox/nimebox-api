@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from 'axios'
-import grabbi from 'grabbi'
+import client from './client'
 
 export interface IBaseScraperResponse {
   title: string
@@ -54,6 +54,6 @@ export default abstract class BaseScraper {
   }
 
   protected async api(endpoint: string, config?: AxiosRequestConfig) {
-    return await grabbi(`${this.baseUrl}/${endpoint}`, Object.assign(this.config, config))
+    return await client(`${this.baseUrl}/${endpoint}`, Object.assign(this.config, config))
   }
 }
