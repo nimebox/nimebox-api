@@ -1,2 +1,2 @@
-// serverless `jsdom` with `canvas`work around
+// serverless `jsdom` with `canvas` work around
 module.exports = {}
