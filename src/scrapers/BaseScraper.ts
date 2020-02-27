@@ -1,7 +1,8 @@
+/* eslint-disable max-len */
 import { AxiosRequestConfig } from 'axios'
 import client from './client'
 
-export interface IBaseScraperResponse {
+export interface BaseScraperResponse {
   title: string
   url: string
   date?: string
@@ -9,7 +10,7 @@ export interface IBaseScraperResponse {
   image?: string
 }
 
-export interface IBasePlayerResponse {
+export interface BasePlayerResponse {
   host: string
   player: string
 }

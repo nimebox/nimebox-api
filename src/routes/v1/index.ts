@@ -1,7 +1,7 @@
 import Koa from 'koa'
 import { createApp } from '../..'
 
-async function main(ctx: Koa.Context, next: Function) {
+async function main(ctx: Koa.Context) {
   ctx.status = 200
   ctx.body = {
     message: `Api say Hello`

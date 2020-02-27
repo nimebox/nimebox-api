@@ -1,4 +1,5 @@
-import BaseScraper, { IBaseScraperResponse } from './BaseScraper'
+/* eslint-disable max-len */
+import BaseScraper, { BaseScraperResponse } from './BaseScraper'
 
 export default class Anime24 extends BaseScraper {
   constructor() {
@@ -8,7 +9,7 @@ export default class Anime24 extends BaseScraper {
     this.lang = 'pl'
   }
 
-  public async getNews(): Promise<IBaseScraperResponse[]> {
+  public async getNews(): Promise<BaseScraperResponse[]> {
     try {
       const { doc } = await this.api('news')
 

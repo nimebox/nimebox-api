@@ -3,7 +3,7 @@ const getDomainName = url => {
   return regex.exec(url)[1].toLowerCase()
 }
 
-const wait = (ms: number) => new Promise((resolve, reject) => setTimeout(resolve, ms))
+const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 export type AnimeRespone = {
   serviceId?: string

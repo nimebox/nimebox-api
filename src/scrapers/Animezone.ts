@@ -1,4 +1,5 @@
-import BaseScraper, { IBaseScraperResponse, IBasePlayerResponse } from './BaseScraper'
+/* eslint-disable max-len */
+import BaseScraper, { BaseScraperResponse, BasePlayerResponse } from './BaseScraper'
 import axios from 'axios'
 import axiosCookieJarSupport from 'axios-cookiejar-support'
 import tough from 'tough-cookie'
@@ -23,9 +24,9 @@ export default class AnimeZoneScraper extends BaseScraper {
     this.lang = 'pl'
   }
 
-  public async getAnime(animeTitle: string): Promise<IBaseScraperResponse[]> {
+  public async getAnime(animeTitle: string): Promise<BaseScraperResponse[]> {
     try {
-      const { doc } = await this.api(`odcinki/${encodeURIComponent(animeTitle.split(' ').join('-')).toLowerCase()}`)
+      const { doc } = await this.api(`anime/${encodeURIComponent(animeTitle.split(' ').join('-')).toLowerCase()}`)
 
       const obj = {
         title: [
@@ -51,7 +52,7 @@ export default class AnimeZoneScraper extends BaseScraper {
     }
   }
 
-  public async getPlayers(animeTitle: string, episodeNumber: string | number): Promise<IBasePlayerResponse[] | any> {
+  public async getPlayers(animeTitle: string, episodeNumber: string | number): Promise<BasePlayerResponse[] | any> {
     try {
       const path = `odcinek/${encodeURIComponent(animeTitle.split(' ').join('-')).toLowerCase()}/${encodeURIComponent(
         episodeNumber.toString()

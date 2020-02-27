@@ -18,7 +18,7 @@ export default class OkamiSubsScraper extends BaseScraper {
           .slice(0, -1)
       )
 
-      return data.animes.map((el, i) => {
+      return data.animes.map(el => {
         return {
           title: el.title,
           url: `${this.baseUrl}${el.path}`

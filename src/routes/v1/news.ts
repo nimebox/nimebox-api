@@ -2,7 +2,7 @@ import Koa from 'koa'
 import { createApp } from '../..'
 import Anime24 from '../../scrapers/Anime24'
 
-async function main(ctx: Koa.Context, next: Function) {
+async function main(ctx: Koa.Context) {
   const animeNews = new Anime24()
   const res = await animeNews.getNews()
 

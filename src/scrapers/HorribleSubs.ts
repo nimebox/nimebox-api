@@ -1,4 +1,4 @@
-import BaseScraper, { IBaseScraperResponse } from './BaseScraper'
+import BaseScraper, { BaseScraperResponse } from './BaseScraper'
 
 const titleRegex = /<\/span>([^<>]+) -\s*<strong>([0-9a-zA-Z]+)<\/strong>/g
 
@@ -38,7 +38,7 @@ export default class HorribleSubsScraper extends BaseScraper {
     }
   }
 
-  public async getAnime(animeTitle: string): Promise<IBaseScraperResponse[]> {
+  public async getAnime(animeTitle: string): Promise<BaseScraperResponse[]> {
     try {
       const { doc, res } = await this.api(`api.php?method=search&value=${encodeURIComponent(animeTitle)}`)
 

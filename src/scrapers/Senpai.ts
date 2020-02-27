@@ -1,4 +1,5 @@
-import BaseScraper, { IBaseScraperResponse, IBasePlayerResponse } from './BaseScraper'
+/* eslint-disable max-len */
+import BaseScraper, { BaseScraperResponse, BasePlayerResponse } from './BaseScraper'
 
 export default class SenpaiScraper extends BaseScraper {
   constructor() {
@@ -41,7 +42,7 @@ export default class SenpaiScraper extends BaseScraper {
     }
   }
 
-  public async getAnime(animeTitle: string): Promise<IBaseScraperResponse[]> {
+  public async getAnime(animeTitle: string): Promise<BaseScraperResponse[]> {
     try {
       const { doc } = await this.api(`anime/${encodeURIComponent(animeTitle)}`)
 
@@ -66,7 +67,7 @@ export default class SenpaiScraper extends BaseScraper {
     }
   }
 
-  public async getPlayers(animeTitle: string, episodeNumber: string | number): Promise<IBasePlayerResponse[]> {
+  public async getPlayers(animeTitle: string, episodeNumber: string | number): Promise<BasePlayerResponse[]> {
     try {
       const { doc } = await this.api(
         `anime/${encodeURIComponent(animeTitle)}/${encodeURIComponent(episodeNumber.toString())}`
