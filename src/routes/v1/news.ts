@@ -9,7 +9,7 @@ async function main(ctx: Koa.Context) {
   ctx.status = 200
   ctx.body = {
     serviceId: animeNews.serviceId,
-    data: res
+    data: res,
   }
 }
 

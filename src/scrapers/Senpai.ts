@@ -17,24 +17,24 @@ export default class SenpaiScraper extends BaseScraper {
         title: [
           ...doc.querySelectorAll(
             'div[class="collection row anime-col"] > a[class="collection-item anime-item col l6 m6 s12"] > div[class="anime-desc"] > span[class="title anime-title"]'
-          )
+          ),
         ],
         url: [
           ...doc.querySelectorAll(
             'div[class="collection row anime-col"] > a[class="collection-item anime-item col l6 m6 s12"][href]'
-          )
+          ),
         ],
         image: [
           ...doc.querySelectorAll(
             'div[class="collection row anime-col"] > a[class="collection-item anime-item col l6 m6 s12"] > img[class="anime-cover"][src]'
-          )
-        ]
+          ),
+        ],
       }
       return obj.title.map((el, i) => {
         return {
           title: el.textContent.trim(),
           url: `${this.baseUrl}${obj.url[i].getAttribute('href')}`,
-          image: `${this.baseUrl}${obj.image[i].getAttribute('src')}`
+          image: `${this.baseUrl}${obj.image[i].getAttribute('src')}`,
         }
       })
     } catch (err) {
@@ -50,16 +50,16 @@ export default class SenpaiScraper extends BaseScraper {
         title: [
           ...doc.querySelectorAll(
             'div[class="collection row anime-col"] > a[class="collection-item anime-item"] > div[class="anime-number"] > h5'
-          )
+          ),
         ],
         url: [
-          ...doc.querySelectorAll('div[class="collection row anime-col"] > a[class="collection-item anime-item"][href]')
-        ]
+          ...doc.querySelectorAll('div[class="collection row anime-col"] > a[class="collection-item anime-item"][href]'),
+        ],
       }
       return obj.title.map((el, i) => {
         return {
           title: el.textContent.trim(),
-          url: `${this.baseUrl}${obj.url[i].getAttribute('href')}`
+          url: `${this.baseUrl}${obj.url[i].getAttribute('href')}`,
         }
       })
     } catch (err) {
@@ -75,12 +75,12 @@ export default class SenpaiScraper extends BaseScraper {
 
       const obj = {
         host: [...doc.querySelectorAll('div[class="container"] > ul[class="tabs"] > li[class="tab"] > a')],
-        players: [...doc.querySelectorAll('div[class="video-container"] > iframe[src]')]
+        players: [...doc.querySelectorAll('div[class="video-container"] > iframe[src]')],
       }
       return obj.host.map((el, i) => {
         return {
           host: el.textContent.trim(),
-          player: obj.players[i].getAttribute('src')
+          player: obj.players[i].getAttribute('src'),
         }
       })
     } catch (err) {

@@ -21,14 +21,14 @@ async function main(ctx: Koa.Context) {
       res = {
         serviceId: horriblesubs.serviceId,
         lang: horriblesubs.lang,
-        data: await horriblesubs.getAnimeList()
+        data: await horriblesubs.getAnimeList(),
       }
       break
     case 'okamisubs':
       res = {
         serviceId: okamisubs.serviceId,
         lang: okamisubs.lang,
-        data: await okamisubs.getAnimeList()
+        data: await okamisubs.getAnimeList(),
       }
       break
     case 'senpai':
@@ -36,7 +36,7 @@ async function main(ctx: Koa.Context) {
       res = {
         serviceId: senpai.serviceId,
         lang: senpai.lang,
-        data: await senpai.getAnimeList()
+        data: await senpai.getAnimeList(),
       }
   }
 

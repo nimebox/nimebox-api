@@ -22,20 +22,20 @@ async function main(ctx: Koa.Context) {
       case 'animezone':
         res = {
           serviceId: animezone.serviceId,
-          data: await animezone.getAnime(ctx.query.q)
+          data: await animezone.getAnime(ctx.query.q),
         }
         break
       case 'horriblesubs':
         res = {
           serviceId: horriblesubs.serviceId,
-          data: await horriblesubs.getAnime(ctx.query.q)
+          data: await horriblesubs.getAnime(ctx.query.q),
         }
         break
       case 'senpai':
       default:
         res = {
           serviceId: senpai.serviceId,
-          data: await senpai.getAnime(ctx.query.q)
+          data: await senpai.getAnime(ctx.query.q),
         }
     }
     ctx.status = 200

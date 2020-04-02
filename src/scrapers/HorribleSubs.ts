@@ -16,21 +16,21 @@ export default class HorribleSubsScraper extends BaseScraper {
 
       const obj = {
         title: [
-          ...(function() {
+          ...(function () {
             let titleArray
             const result = []
             while ((titleArray = titleRegex.exec((res as unknown) as string)) !== null) {
               result.push(titleArray)
             }
             return result
-          })()
+          })(),
         ],
-        url: [...doc.querySelectorAll('ul li a[href]')]
+        url: [...doc.querySelectorAll('ul li a[href]')],
       }
       return obj.title.map((el, i) => {
         return {
           title: el[1].trim(),
-          url: `${this.baseUrl}${obj.url[i].getAttribute('href')}`
+          url: `${this.baseUrl}${obj.url[i].getAttribute('href')}`,
         }
       })
     } catch (err) {
@@ -44,21 +44,21 @@ export default class HorribleSubsScraper extends BaseScraper {
 
       const obj = {
         title: [
-          ...(function() {
+          ...(function () {
             let titleArray
             const result = []
             while ((titleArray = titleRegex.exec((res as unknown) as string)) !== null) {
               result.push(titleArray)
             }
             return result
-          })()
+          })(),
         ],
-        url: [...doc.querySelectorAll('ul li a[href]')]
+        url: [...doc.querySelectorAll('ul li a[href]')],
       }
       return obj.title.map((el, i) => {
         return {
           title: el[2].trim(),
-          url: `${this.baseUrl}${obj.url[i].getAttribute('href')}`
+          url: `${this.baseUrl}${obj.url[i].getAttribute('href')}`,
         }
       })
     } catch (err) {

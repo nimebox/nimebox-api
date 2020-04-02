@@ -15,8 +15,8 @@ const api = axios.create({
     'User-Agent':
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3165.0 Safari/537.36',
     'Cache-Control': 'no-cache',
-    'content-type': 'application/x-www-form-urlencoded'
-  }
+    'content-type': 'application/x-www-form-urlencoded',
+  },
 })
 
 const getAnimeList = async () => {
@@ -25,9 +25,9 @@ const getAnimeList = async () => {
     strona: 1,
     sortuj: 0,
     widok: 1,
-    strony: 0
+    strony: 0,
   }
-  const runAndParsePage = async form => {
+  const runAndParsePage = async (form) => {
     const response = await api.post('/moduly/anime/ajax.szukaj.php', qs.stringify(form))
     return new Promise((resolve, reject) => {
       xray(response.data, {
@@ -36,22 +36,22 @@ const getAnimeList = async () => {
             title: 'a',
             url: 'a@href',
             description: 'div > h6:nth-of-type(2)',
-            image: 'div > div.obrazek@onclick'
-          }
-        ])
+            image: 'div > div.obrazek@onclick',
+          },
+        ]),
       })(async (err, obj) => {
         if (err) {
           reject(err)
         }
 
         const list = []
-        _.forEach(obj.items, value => {
+        _.forEach(obj.items, (value) => {
           list.push({
             // id: value.url.split('/').pop().toLowerCase(),
             title: value.title.trim(),
             url: `${BASE_URL}/${value.url}/odcinki`,
             description: `${value.description === undefined ? '' : value.description}`,
-            image: `${BASE_URL}/${value.image.slice(9, -2)}`
+            image: `${BASE_URL}/${value.image.slice(9, -2)}`,
           })
         })
         resolve(list)
@@ -69,21 +69,21 @@ const getAnimeList = async () => {
           title: 'a',
           url: 'a@href',
           description: 'div > h6:nth-of-type(2)',
-          image: 'div > div.obrazek@onclick'
-        }
-      ])
+          image: 'div > div.obrazek@onclick',
+        },
+      ]),
     })(async (err, obj) => {
       if (err) {
         reject(err)
       }
 
-      _.forEach(obj.items, value => {
+      _.forEach(obj.items, (value) => {
         fullList.push({
           // id: value.url.split('/').pop().toLowerCase(),
           title: value.title.trim(),
           url: `${BASE_URL}/${value.url}/odcinki`,
           description: `${value.description === undefined ? '' : value.description}`,
-          image: `${BASE_URL}/${value.image.slice(9, -2)}`
+          image: `${BASE_URL}/${value.image.slice(9, -2)}`,
         })
       })
       const maxSiteNumber = parseInt(obj.sites.slice(9, -1), 10)
@@ -95,35 +95,35 @@ const getAnimeList = async () => {
           strona: page,
           sortuj: 0,
           widok: 1,
-          strony: maxSiteNumber
+          strony: maxSiteNumber,
         })
       }
 
       const promiseList = []
 
-      _.forEach(forms, item => {
+      _.forEach(forms, (item) => {
         promiseList.push(runAndParsePage(item))
       })
 
       Promise.all(promiseList)
-        .then(rest => {
-          _.forEach(rest, item => {
+        .then((rest) => {
+          _.forEach(rest, (item) => {
             fullList = _.concat(fullList, item)
           })
           fullList = _.sortBy(fullList, [
-            o => {
+            (o) => {
               return o.title
-            }
+            },
           ])
 
           resolve({ serviceId: SERVICE_ID, items: fullList })
         })
-        .catch(err => console.error(err))
+        .catch((err) => console.error(err))
     })
   })
 }
 
-const getAnime = async q => {
+const getAnime = async (q) => {
   await utils.wait(5000)
   const response = await api.get(`/anime/${q}/odcinki`)
   return new Promise((resolve, reject) => {
@@ -132,24 +132,21 @@ const getAnime = async q => {
         {
           title: 'div.tp.tbl > a',
           url: 'div.tp.tbl > div.right > div > a@href',
-          epNumber: 'div.tp.tbl:nth-of-type(2)'
-        }
-      ])
+          epNumber: 'div.tp.tbl:nth-of-type(2)',
+        },
+      ]),
     })((err, obj) => {
       if (err) {
         reject(err)
       }
 
       const list = []
-      _.forEach(obj.items, value => {
+      _.forEach(obj.items, (value) => {
         console.log(`url: ${value.url}`)
         list.push({
-          id: value.url
-            .split('/')
-            .pop()
-            .toLowerCase(),
+          id: value.url.split('/').pop().toLowerCase(),
           title: `${value.epNumber.trim()} - ${value.title.trim()}`,
-          url: `${value.url}`
+          url: `${value.url}`,
         })
       })
 
@@ -157,15 +154,15 @@ const getAnime = async q => {
     })
   })
 }
-const runAndParsePlayersPage = async data => {
+const runAndParsePlayersPage = async (data) => {
   const form = {
-    id: data.videoId
+    id: data.videoId,
   }
 
   const response = await api.post('/moduly/anime/ajax.online.php', qs.stringify(form))
   return new Promise((resolve, reject) => {
     xray(response.data, {
-      players: ['iframe@src']
+      players: ['iframe@src'],
     })((err, obj) => {
       if (err) {
         reject(err)
@@ -181,7 +178,7 @@ const runAndParsePlayersPage = async data => {
       resolve({
         uid: `${splitedDomainPlayer[splitedDomainPlayer.length - 2].toLowerCase()}_${data.index}`,
         url: videoUrl,
-        name: data.name
+        name: data.name,
       })
     })
   })
@@ -193,9 +190,9 @@ const getPlayers = async (q, n) => {
       items: xray('div.tw', [
         {
           videoId: 'div > a@onclick',
-          playerName: 'div > a'
-        }
-      ])
+          playerName: 'div > a',
+        },
+      ]),
     })(async (err, obj) => {
       if (err) {
         reject(err)
@@ -207,16 +204,16 @@ const getPlayers = async (q, n) => {
           runAndParsePlayersPage({
             videoId: value.videoId.slice(8, -2),
             name: value.playerName.replace(new RegExp(/(\(.*\))/, 'g'), '').trim(),
-            index
+            index,
           })
         )
       })
 
       Promise.all(promiseList)
-        .then(rest => {
+        .then((rest) => {
           resolve(rest)
         })
-        .catch(err => console.error(err))
+        .catch((err) => console.error(err))
     })
   })
 }
@@ -224,5 +221,5 @@ const getPlayers = async (q, n) => {
 export default {
   getAnimeList,
   getAnime,
-  getPlayers
+  getPlayers,
 }

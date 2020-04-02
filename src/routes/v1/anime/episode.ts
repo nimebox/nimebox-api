@@ -21,7 +21,7 @@ async function main(ctx: Koa.Context) {
         res = {
           serviceId: animezone.serviceId,
           lang: animezone.lang,
-          data: await animezone.getPlayers(ctx.query.q, ctx.query.n)
+          data: await animezone.getPlayers(ctx.query.q, ctx.query.n),
         }
         break
       case 'senpai':
@@ -29,7 +29,7 @@ async function main(ctx: Koa.Context) {
         res = {
           serviceId: senpai.serviceId,
           lang: senpai.lang,
-          data: await senpai.getPlayers(ctx.query.q, ctx.query.n)
+          data: await senpai.getPlayers(ctx.query.q, ctx.query.n),
         }
     }
     ctx.status = 200

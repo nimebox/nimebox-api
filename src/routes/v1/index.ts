@@ -4,7 +4,7 @@ import { createApp } from '../..'
 async function main(ctx: Koa.Context) {
   ctx.status = 200
   ctx.body = {
-    message: `Api say Hello`
+    message: `Api say Hello`,
   }
 }
 

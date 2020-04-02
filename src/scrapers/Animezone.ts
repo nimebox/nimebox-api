@@ -11,7 +11,7 @@ axiosCookieJarSupport(axios)
 
 const config = {
   jar: cookieJar,
-  withCredentials: true
+  withCredentials: true,
 }
 
 const sessionApi = axios.create(config)
@@ -32,19 +32,19 @@ export default class AnimeZoneScraper extends BaseScraper {
         title: [
           ...doc.querySelectorAll(
             'table[class="table table-bordered table-striped table-hover episodes"] > tbody > tr > td[class="episode-title"]'
-          )
+          ),
         ],
         url: [
           ...doc.querySelectorAll(
             'table[class="table table-bordered table-striped table-hover episodes"] > tbody > tr > td[class="text-center"] > a[href]'
-          )
-        ]
+          ),
+        ],
       }
 
       return obj.title.map((el, i) => {
         return {
           title: el.textContent.trim(),
-          url: `${this.baseUrl}/${obj.url[i].getAttribute('href')}`
+          url: `${this.baseUrl}/${obj.url[i].getAttribute('href')}`,
         }
       })
     } catch (err) {
@@ -65,19 +65,19 @@ export default class AnimeZoneScraper extends BaseScraper {
         host: [
           ...doc.querySelectorAll(
             'table[class="table table-bordered table-striped table-hover episode"] > tbody > tr > td:first-of-type'
-          )
+          ),
         ],
         players: [
           ...doc.querySelectorAll(
             'table[class="table table-bordered table-striped table-hover episode"] > tbody > tr > td:nth-child(4) > button[class="btn btn-xs btn-success play"]'
-          )
-        ]
+          ),
+        ],
       }
 
       return obj.host.map((el, i) => {
         return {
           host: el.textContent.trim(),
-          player: obj.players[i].attributes[1].textContent
+          player: obj.players[i].attributes[1].textContent,
         }
       })
     } catch (err) {

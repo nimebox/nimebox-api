@@ -11,17 +11,12 @@ export default class OkamiSubsScraper extends BaseScraper {
   public async getAnimeList(): Promise<any> {
     try {
       const { doc } = await this.api('lista_anime')
-      const data = JSON.parse(
-        [...doc.scripts][4].innerHTML
-          .trim()
-          .replace('window.InitData =', '')
-          .slice(0, -1)
-      )
+      const data = JSON.parse([...doc.scripts][4].innerHTML.trim().replace('window.InitData =', '').slice(0, -1))
 
-      return data.animes.map(el => {
+      return data.animes.map((el) => {
         return {
           title: el.title,
-          url: `${this.baseUrl}${el.path}`
+          url: `${this.baseUrl}${el.path}`,
         }
       })
     } catch (err) {
