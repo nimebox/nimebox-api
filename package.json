@@ -20,7 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "axios-cookiejar-support": "^0.5.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "canvas": "file:./src/utils/canvas",
     "cross-env": "^7.0.2",
     "jsdom": "^16.2.2",
