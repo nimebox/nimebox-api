@@ -32,6 +32,7 @@ If you want to help with the project, you can have a look at some [issues](https
 - Install depedencies
     ```bash
     npm i
+    npm i -g vercel # required to run serverless functions
     ```
 - Running application
     ```bash

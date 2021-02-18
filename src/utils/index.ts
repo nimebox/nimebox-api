@@ -1,9 +1,9 @@
-const getDomainName = (url) => {
+const getDomainName = (url: string): string => {
   const regex = /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim
   return regex.exec(url)[1].toLowerCase()
 }
 
-const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+const wait = (ms: number): Promise<unknown> => new Promise((resolve) => setTimeout(resolve, ms))
 
 export type AnimeRespone = {
   serviceId?: string

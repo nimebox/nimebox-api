@@ -1,16 +1,17 @@
 {
   "name": "nimebox-api",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "private": true,
   "description": "Nimebox RESTful API",
   "main": "./dist/index",
   "scripts": {
-    "dev": "now dev",
+    "dev": "vc dev",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
     "lint": "eslint . --ext .js,.ts",
-    "lint-fix": "prettier --write \"src/**/*.ts*\" && eslint . --ext .js,.ts --fix",
-    "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
+    "lint-fix": "prettier --write \"src/**/*.ts*\" && eslint src/**/*.ts* --ext .js,.ts --fix",
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
+    "test-debug": "node --inspect node_modules/.bin/jest --runInBand"
   },
   "author": "xdk78 <xdk78888@gmail.com>",
   "contributors": [
@@ -19,42 +20,41 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "axios-cookiejar-support": "^0.5.1",
-    "axios": "^0.19.2",
-    "canvas": "file:./src/utils/canvas",
-    "cross-env": "^7.0.2",
-    "jsdom": "^16.2.2",
-    "koa": "^2.11.0",
+    "axios": "^0.21.1",
+    "axios-cookiejar-support": "^1.0.1",
+    "cross-env": "^7.0.3",
+    "jsdom": "^16.4.0",
+    "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
-    "koa-helmet": "^5.2.0",
+    "koa-helmet": "^6.0.0",
     "koa-logger": "^3.2.1",
-    "lodash": "^4.17.19",
-    "qs": "^6.9.3",
+    "lodash": "^4.17.20",
+    "qs": "^6.9.6",
     "tough-cookie": "^4.0.0",
     "x-ray": "^2.3.4"
   },
   "devDependencies": {
-    "@types/jest": "^25.1.4",
-    "@types/jsdom": "^16.2.0",
-    "@types/koa": "^2.11.3",
+    "@types/jest": "^26.0.20",
+    "@types/jsdom": "^16.2.6",
+    "@types/koa": "^2.11.8",
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa-logger": "^3.1.1",
-    "@types/lodash": "^4.14.149",
-    "@typescript-eslint/eslint-plugin": "^2.26.0",
-    "@typescript-eslint/parser": "^2.26.0",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.1",
-    "eslint-plugin-jest": "^23.8.2",
-    "eslint-plugin-prettier": "^3.1.2",
-    "@types/node": "^13.9.8",
-    "@types/qs": "^6.9.1",
+    "@types/lodash": "^4.14.168",
+    "@types/node": "^14.14.28",
+    "@types/qs": "^6.9.5",
+    "@typescript-eslint/eslint-plugin": "^4.15.1",
+    "@typescript-eslint/parser": "^4.15.1",
     "dotenv-safe": "^8.2.0",
-    "jest": "^25.2.6",
-    "prettier": "^2.0.2",
-    "supertest": "^4.0.2",
-    "ts-jest": "^25.3.0",
-    "ts-node": "^8.8.1",
-    "typescript": "^3.8.3"
+    "eslint": "^7.20.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-jest": "^24.1.5",
+    "eslint-plugin-prettier": "^3.3.1",
+    "jest": "^26.6.3",
+    "prettier": "^2.2.1",
+    "supertest": "^6.1.3",
+    "ts-jest": "^26.5.1",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.5"
   },
   "jest": {
     "testEnvironment": "node",
@@ -70,8 +70,5 @@
       "json",
       "node"
     ]
-  },
-  "engines": {
-    "node": ">=10"
   }
 }

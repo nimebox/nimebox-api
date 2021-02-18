@@ -24,9 +24,11 @@ export default class AnimeZoneScraper extends BaseScraper {
     this.lang = 'pl'
   }
 
-  public async getAnime(animeTitle: string): Promise<BaseScraperResponse[]> {
+  public async getAnime(animeTitle: string | string[]): Promise<BaseScraperResponse[]> {
     try {
-      const { doc } = await this.api(`anime/${encodeURIComponent(animeTitle.split(' ').join('-')).toLowerCase()}`)
+      const { doc } = await this.api(
+        `anime/${encodeURIComponent(animeTitle.toString().split(' ').join('-')).toLowerCase()}`
+      )
 
       const obj = {
         title: [
@@ -52,11 +54,14 @@ export default class AnimeZoneScraper extends BaseScraper {
     }
   }
 
-  public async getPlayers(animeTitle: string, episodeNumber: string | number): Promise<BasePlayerResponse[] | any> {
+  public async getPlayers(
+    animeTitle: string | string[],
+    episodeNumber: string | string[] | number
+  ): Promise<BasePlayerResponse[] | any> {
     try {
-      const path = `odcinek/${encodeURIComponent(animeTitle.split(' ').join('-')).toLowerCase()}/${encodeURIComponent(
-        episodeNumber.toString()
-      )}`
+      const path = `odcinek/${encodeURIComponent(
+        animeTitle.toString().split(' ').join('-')
+      ).toLowerCase()}/${encodeURIComponent(episodeNumber.toString())}`
       const html = await sessionApi.get(`${this.baseUrl}/${path}`)
       const jsdom = new JSDOM(html.data)
       const doc = jsdom.window.document.body

@@ -29,7 +29,7 @@ async function main(ctx: Koa.Context) {
         res = {
           serviceId: senpai.serviceId,
           lang: senpai.lang,
-          data: await senpai.getPlayers(ctx.query.q, ctx.query.n),
+          data: await senpai.getPlayers(ctx.query.q),
         }
     }
     ctx.status = 200

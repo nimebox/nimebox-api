@@ -9,7 +9,7 @@ export function createApp(main: (app: Koa) => any) {
   app.use(logger())
   app.use(helmet())
   app.use(bodyParser())
-  app.use(async (ctx: Koa.Context, next: Function) => {
+  app.use(async (ctx: Koa.Context, next) => {
     ctx.res.statusCode = 200
     try {
       await next()

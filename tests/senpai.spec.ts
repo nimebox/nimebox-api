@@ -2,7 +2,7 @@ jest.setTimeout(100000)
 
 import Senpai from '../src/scrapers/Senpai'
 const senpai = new Senpai()
-const animeTitle = 'Akatsuki no Yona'
+const animeTitle = 'Mikakunin De Shinkoukei'
 
 describe('Scraper Senpai', () => {
   it('should respond with anime list', async () => {
@@ -29,7 +29,7 @@ describe('Scraper Senpai', () => {
 
   })
   it('should respond with players for one anime', async () => {
-    const players = await senpai.getPlayers(animeTitle, 1)
+    const players = await senpai.getPlayers(`${animeTitle}-s01e02`)
 
     expect(Array.isArray(players)).toBeTruthy()
     expect(players).not.toBeNull()

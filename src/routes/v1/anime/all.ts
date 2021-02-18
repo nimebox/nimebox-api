@@ -1,13 +1,11 @@
 import Koa from 'koa'
 import { createApp } from '../../..'
 import SenpaiScraper from '../../../scrapers/Senpai'
-import HorribleSubsScraper from '../../../scrapers/HorribleSubs'
 import OkamiSubsScraper from '../../../scrapers/OkamiSubs'
 import onanime from '../../../scrapers/onanime'
 import { AnimeRespone } from '../../../utils'
 
 const senpai = new SenpaiScraper()
-const horriblesubs = new HorribleSubsScraper()
 const okamisubs = new OkamiSubsScraper()
 
 async function main(ctx: Koa.Context) {
@@ -16,13 +14,6 @@ async function main(ctx: Koa.Context) {
   switch (ctx.query.provider) {
     case 'onanime':
       res = await onanime.getAnimeList()
-      break
-    case 'horriblesubs':
-      res = {
-        serviceId: horriblesubs.serviceId,
-        lang: horriblesubs.lang,
-        data: await horriblesubs.getAnimeList(),
-      }
       break
     case 'okamisubs':
       res = {
