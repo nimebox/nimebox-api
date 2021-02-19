@@ -54,7 +54,8 @@ export default abstract class BaseScraper {
     this._lang = value
   }
 
-  protected async api(endpoint: string, config?: AxiosRequestConfig) {
+  protected async api(endpoint: string, config?: AxiosRequestConfig, pure?: boolean) {
+    if (pure) return await client(endpoint, Object.assign(this.config, config))
     return await client(`${this.baseUrl}/${endpoint}`, Object.assign(this.config, config))
   }
 }
