@@ -20,9 +20,8 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.21.1",
-    "axios-cookiejar-support": "^1.0.1",
     "cross-env": "^7.0.3",
+    "got": "^11.8.2",
     "jsdom": "^16.4.0",
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",

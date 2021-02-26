@@ -1,20 +1,12 @@
 /* eslint-disable max-len */
 import BaseScraper, { BaseScraperResponse, BasePlayerResponse } from './BaseScraper'
-import axios from 'axios'
-import axiosCookieJarSupport from 'axios-cookiejar-support'
+import got from 'got'
 import tough from 'tough-cookie'
 import { JSDOM } from 'jsdom'
 
 const cookieJar = new tough.CookieJar()
 
-axiosCookieJarSupport(axios)
-
-const config = {
-  jar: cookieJar,
-  withCredentials: true,
-}
-
-const sessionApi = axios.create(config)
+const sessionApi = got.extend({ cookieJar: cookieJar })
 
 export default class AnimeZoneScraper extends BaseScraper {
   constructor() {
@@ -46,7 +38,7 @@ export default class AnimeZoneScraper extends BaseScraper {
       return obj.title.map((el, i) => {
         return {
           title: el.textContent.trim(),
-          url: `${this.baseUrl}/${obj.url[i].getAttribute('href')}`,
+          url: `${this.baseUrl}/${obj.url[i].getAttribute('href').substring(3)}`,
         }
       })
     } catch (err) {
@@ -63,7 +55,7 @@ export default class AnimeZoneScraper extends BaseScraper {
         animeTitle.toString().split(' ').join('-')
       ).toLowerCase()}/${encodeURIComponent(episodeNumber.toString())}`
       const html = await sessionApi.get(`${this.baseUrl}/${path}`)
-      const jsdom = new JSDOM(html.data)
+      const jsdom = new JSDOM(html.body)
       const doc = jsdom.window.document.body
 
       const obj = {

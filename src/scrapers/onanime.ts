@@ -1,5 +1,5 @@
 const xray = require('x-ray')()
-import axios from 'axios'
+import got from 'got'
 import _ from 'lodash'
 import qs from 'qs'
 
@@ -8,8 +8,8 @@ import utils from '../utils'
 const SERVICE_ID = 'onanime'
 const BASE_URL = 'https://on-anime.pl'
 
-const api = axios.create({
-  baseURL: BASE_URL,
+const api = got.extend({
+  prefixUrl: BASE_URL,
   headers: {
     Accept: 'text/html',
     'User-Agent':
@@ -28,9 +28,9 @@ const getAnimeList = async () => {
     strony: 0,
   }
   const runAndParsePage = async (form) => {
-    const response = await api.post('/moduly/anime/ajax.szukaj.php', qs.stringify(form))
+    const response = await api.post('/moduly/anime/ajax.szukaj.php', { body: qs.stringify(form) })
     return new Promise((resolve, reject) => {
-      xray(response.data, {
+      xray(response.body, {
         items: xray('div.ramka > div.tbl > div.tab', [
           {
             title: 'a',
@@ -59,10 +59,10 @@ const getAnimeList = async () => {
     })
   }
 
-  const responseFirst = await api.post('/moduly/anime/ajax.szukaj.php', qs.stringify(form))
+  const responseFirst = await api.post('/moduly/anime/ajax.szukaj.php', { body: qs.stringify(form) })
 
   return new Promise((resolve, reject) => {
-    xray(responseFirst.data, {
+    xray(responseFirst.body, {
       sites: 'script',
       items: xray('div.ramka > div.tbl > div.tab', [
         {
@@ -127,7 +127,7 @@ const getAnime = async (q) => {
   await utils.wait(5000)
   const response = await api.get(`/anime/${q}/odcinki`)
   return new Promise((resolve, reject) => {
-    xray(response.data, {
+    xray(response.body, {
       items: xray('#lista_odcinkow > div.tab', [
         {
           title: 'div.tp.tbl > a',
@@ -159,9 +159,9 @@ const runAndParsePlayersPage = async (data) => {
     id: data.videoId,
   }
 
-  const response = await api.post('/moduly/anime/ajax.online.php', qs.stringify(form))
+  const response = await api.post('/moduly/anime/ajax.online.php', { body: qs.stringify(form) })
   return new Promise((resolve, reject) => {
-    xray(response.data, {
+    xray(response.body, {
       players: ['iframe@src'],
     })((err, obj) => {
       if (err) {
@@ -186,7 +186,7 @@ const runAndParsePlayersPage = async (data) => {
 const getPlayers = async (q, n) => {
   const response = await api.get(`/anime/${q}/${n}`)
   return new Promise((resolve, reject) => {
-    xray(response.data, {
+    xray(response.body, {
       items: xray('div.tw', [
         {
           videoId: 'div > a@onclick',

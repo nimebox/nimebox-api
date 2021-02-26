@@ -1,15 +1,18 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import axios, { AxiosRequestConfig } from 'axios'
+import got from 'got'
+import type { ExtendOptions, Got } from 'got'
 import { JSDOM } from 'jsdom'
 
-export default async function (url: string, opts?: AxiosRequestConfig) {
+export default async function (url: string, opts?: Got | ExtendOptions) {
   try {
-    const config = Object.assign({}, opts, { url })
-    const response = await axios(config)
-    const jsdom = new JSDOM(response.data)
+    const config: Got | ExtendOptions = Object.assign({}, opts, { url })
+
+    const gotInstance = got.extend(config)
+    const response = await gotInstance(url)
+
+    const jsdom = new JSDOM(response.body)
     return {
       doc: jsdom.window.document,
-      res: response.data,
+      res: response.body,
     }
   } catch (err) {
     throw err

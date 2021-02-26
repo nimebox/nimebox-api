@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
-import { AxiosRequestConfig } from 'axios'
 import client from './client'
+import type { ExtendOptions, Got } from 'got'
 
 export interface BaseScraperResponse {
   title: string
@@ -19,7 +19,7 @@ export default abstract class BaseScraper {
   private _serviceId: string
   private _baseUrl: string
   private _lang: string
-  protected config: AxiosRequestConfig
+  protected config: Got | ExtendOptions
 
   constructor() {
     this.config = {
@@ -54,7 +54,7 @@ export default abstract class BaseScraper {
     this._lang = value
   }
 
-  protected async api(endpoint: string, config?: AxiosRequestConfig, pure?: boolean) {
+  protected async api(endpoint: string, config?: Got | ExtendOptions, pure?: boolean) {
     if (pure) return await client(endpoint, Object.assign(this.config, config))
     return await client(`${this.baseUrl}/${endpoint}`, Object.assign(this.config, config))
   }
