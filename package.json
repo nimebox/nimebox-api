@@ -27,7 +27,7 @@
     "koa-bodyparser": "^4.3.0",
     "koa-helmet": "^6.0.0",
     "koa-logger": "^3.2.1",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "qs": "^6.9.6",
     "tough-cookie": "^4.0.0",
     "x-ray": "^2.3.4"
