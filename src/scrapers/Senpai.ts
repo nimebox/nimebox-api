@@ -5,7 +5,7 @@ import utils from '../utils'
 export default class SenpaiScraper extends BaseScraper {
   constructor() {
     super()
-    this.baseUrl = 'https://senpai.eu'
+    this.baseUrl = 'http://senpai.eu'
     this.serviceId = 'senpai'
     this.lang = 'pl'
   }

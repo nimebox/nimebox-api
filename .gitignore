@@ -75,3 +75,4 @@ gen
 dist
 
 .now
+coverage
