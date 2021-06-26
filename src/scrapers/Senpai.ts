@@ -1,11 +1,12 @@
 /* eslint-disable max-len */
+// TODO: find fix for `RequestError: unable to get local issuer certificate`
 import BaseScraper, { BaseScraperResponse, BasePlayerResponse } from './BaseScraper'
 import utils from '../utils'
 
 export default class SenpaiScraper extends BaseScraper {
   constructor() {
     super()
-    this.baseUrl = 'http://senpai.eu'
+    this.baseUrl = 'https://senpai.eu'
     this.serviceId = 'senpai'
     this.lang = 'pl'
   }

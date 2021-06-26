@@ -1,8 +1,8 @@
+// TODO: re-write and implement scrapper based on `BaseScraper`
 const xray = require('x-ray')()
 import got from 'got'
 import _ from 'lodash'
 import qs from 'qs'
-
 import utils from '../utils'
 
 const SERVICE_ID = 'onanime'
@@ -19,7 +19,43 @@ const api = got.extend({
   },
 })
 
-const getAnimeList = async () => {
+const runAndParsePage = async (form): Promise<{ title: string; url: string; description: string; image: string }[]> => {
+  const response = await api.post('moduly/anime/ajax.szukaj.php', { body: qs.stringify(form) })
+  return new Promise((resolve, reject) => {
+    xray(response.body, {
+      items: xray('div.ramka > div.tbl > div.tab', [
+        {
+          title: 'a',
+          url: 'a@href',
+          description: 'div > h6:nth-of-type(2)',
+          image: 'div > div.obrazek@onclick',
+        },
+      ]),
+    })(async (err, obj) => {
+      if (err) {
+        reject(err)
+      }
+
+      const list = []
+      _.forEach(obj.items, (value) => {
+        list.push({
+          // id: value.url.split('/').pop().toLowerCase(),
+          title: value.title.trim(),
+          url: `${BASE_URL}/${value.url}/odcinki`,
+          description: `${value.description === undefined ? '' : value.description}`,
+          image: `${BASE_URL}/${value.image.slice(9, -2)}`,
+        })
+      })
+      resolve(list)
+    })
+  })
+}
+
+// TODO: fix
+const getAnimeList = async (): Promise<{
+  serviceId: string
+  items: { title: string; url: string; description: string; image: string }[]
+}> => {
   let fullList = []
   const form = {
     strona: 1,
@@ -27,39 +63,10 @@ const getAnimeList = async () => {
     widok: 1,
     strony: 0,
   }
-  const runAndParsePage = async (form) => {
-    const response = await api.post('/moduly/anime/ajax.szukaj.php', { body: qs.stringify(form) })
-    return new Promise((resolve, reject) => {
-      xray(response.body, {
-        items: xray('div.ramka > div.tbl > div.tab', [
-          {
-            title: 'a',
-            url: 'a@href',
-            description: 'div > h6:nth-of-type(2)',
-            image: 'div > div.obrazek@onclick',
-          },
-        ]),
-      })(async (err, obj) => {
-        if (err) {
-          reject(err)
-        }
 
-        const list = []
-        _.forEach(obj.items, (value) => {
-          list.push({
-            // id: value.url.split('/').pop().toLowerCase(),
-            title: value.title.trim(),
-            url: `${BASE_URL}/${value.url}/odcinki`,
-            description: `${value.description === undefined ? '' : value.description}`,
-            image: `${BASE_URL}/${value.image.slice(9, -2)}`,
-          })
-        })
-        resolve(list)
-      })
-    })
-  }
-
-  const responseFirst = await api.post('/moduly/anime/ajax.szukaj.php', { body: qs.stringify(form) })
+  const responseFirst = await api.post('moduly/anime/ajax.szukaj.php', { body: qs.stringify(form) }).catch((e) => {
+    throw e
+  })
 
   return new Promise((resolve, reject) => {
     xray(responseFirst.body, {
@@ -123,9 +130,13 @@ const getAnimeList = async () => {
   })
 }
 
-const getAnime = async (q) => {
+const getAnime = async (
+  q: string
+): Promise<{ serviceId: string; animeId: string; items: { id: string; title: string; url: string }[] }> => {
   await utils.wait(5000)
-  const response = await api.get(`/anime/${q}/odcinki`)
+  const response = await api.get(`anime/${q}/odcinki`).catch((e) => {
+    throw e
+  })
   return new Promise((resolve, reject) => {
     xray(response.body, {
       items: xray('#lista_odcinkow > div.tab', [
@@ -159,7 +170,9 @@ const runAndParsePlayersPage = async (data) => {
     id: data.videoId,
   }
 
-  const response = await api.post('/moduly/anime/ajax.online.php', { body: qs.stringify(form) })
+  const response = await api.post('moduly/anime/ajax.online.php', { body: qs.stringify(form) }).catch((e) => {
+    throw e
+  })
   return new Promise((resolve, reject) => {
     xray(response.body, {
       players: ['iframe@src'],
@@ -184,7 +197,9 @@ const runAndParsePlayersPage = async (data) => {
   })
 }
 const getPlayers = async (q, n) => {
-  const response = await api.get(`/anime/${q}/${n}`)
+  const response = await api.get(`anime/${q}/${n}`).catch((e: Error) => {
+    throw e
+  })
   return new Promise((resolve, reject) => {
     xray(response.body, {
       items: xray('div.tw', [

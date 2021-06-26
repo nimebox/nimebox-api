@@ -1,11 +1,8 @@
 import Koa from 'koa'
 import { createApp } from '../../..'
-import SenpaiScraper from '../../../scrapers/Senpai'
-import onanime from '../../../scrapers/onanime'
 import AnimeZoneScraper from '../../../scrapers/Animezone'
 import { AnimeRespone } from '../../../utils'
 
-const senpai = new SenpaiScraper()
 const animezone = new AnimeZoneScraper()
 
 async function main(ctx: Koa.Context) {
@@ -14,24 +11,19 @@ async function main(ctx: Koa.Context) {
   } else {
     let res: AnimeRespone
     switch (ctx.query.provider) {
-      case 'onanime':
-        res = await onanime.getAnime(ctx.query.q)
-        break
       case 'animezone':
-        res = {
-          serviceId: animezone.serviceId,
-          data: await animezone.getAnime(ctx.query.q),
+        try {
+          res = {
+            serviceId: animezone.serviceId,
+            data: await animezone.getAnime(ctx.query.q),
+          }
+          ctx.status = 200
+          ctx.body = res
+        } catch (error) {
+          ctx.throw(error)
         }
         break
-      case 'senpai':
-      default:
-        res = {
-          serviceId: senpai.serviceId,
-          data: await senpai.getAnime(ctx.query.q),
-        }
     }
-    ctx.status = 200
-    ctx.body = res
   }
 }
 

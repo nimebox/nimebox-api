@@ -4,7 +4,7 @@ import Senpai from '../src/scrapers/Senpai'
 const senpai = new Senpai()
 const animeTitle = 'Mikakunin De Shinkoukei'
 
-describe('Scraper Senpai', () => {
+describe.skip('Scraper Senpai', () => {
   it('should respond with anime list', async () => {
     const animeList = await senpai.getAnimeList()
 
