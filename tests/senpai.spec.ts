@@ -4,7 +4,7 @@ import Senpai from '../src/scrapers/Senpai'
 const senpai = new Senpai()
 const animeTitle = 'Mikakunin De Shinkoukei'
 
-describe.skip('Scraper Senpai', () => {
+describe('Scraper Senpai', () => {
   it('should respond with anime list', async () => {
     const animeList = await senpai.getAnimeList()
 
@@ -13,9 +13,7 @@ describe.skip('Scraper Senpai', () => {
     animeList.map((el) => {
       expect(el.title).toBeDefined()
       expect(el.url).toBeDefined()
-      expect(el.image).toBeDefined()
     })
-
   })
   it('should respond with one anime', async () => {
     const anime = await senpai.getAnime(animeTitle)
@@ -26,7 +24,6 @@ describe.skip('Scraper Senpai', () => {
       expect(el.title).toBeDefined()
       expect(el.url).toBeDefined()
     })
-
   })
   it('should respond with players for one anime', async () => {
     const players = await senpai.getPlayers(`${animeTitle}-s01e02`)
@@ -37,6 +34,5 @@ describe.skip('Scraper Senpai', () => {
       expect(el.host).toBeDefined()
       expect(el.player).toBeDefined()
     })
-
   })
 })
