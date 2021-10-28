@@ -3,7 +3,7 @@ const xray = require('x-ray')()
 import got from 'got'
 import _ from 'lodash'
 import qs from 'qs'
-import utils from '../utils'
+import * as utils from '../utils'
 
 const SERVICE_ID = 'onanime'
 const BASE_URL = 'https://on-anime.pl'
@@ -51,7 +51,7 @@ const runAndParsePage = async (form): Promise<{ title: string; url: string; desc
   })
 }
 
-// TODO: fix
+// FIXME
 const getAnimeList = async (): Promise<{
   serviceId: string
   items: { title: string; url: string; description: string; image: string }[]

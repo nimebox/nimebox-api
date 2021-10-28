@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
-// TODO: find fix for `RequestError: unable to get local issuer certificate`
 import BaseScraper, { BaseScraperResponse, BasePlayerResponse } from './BaseScraper'
-import utils from '../utils'
+import * as utils from '../utils'
 
 export default class SenpaiScraper extends BaseScraper {
   constructor() {
@@ -11,38 +10,34 @@ export default class SenpaiScraper extends BaseScraper {
     this.lang = 'pl'
   }
 
+  private parseTitle(title: string | string[]): string {
+    return encodeURIComponent(title.toString().replace(/\s+/g, '-').toLowerCase())
+  }
+
   public async getAnimeList(): Promise<any[]> {
     try {
-      const { doc } = await this.api('tv-shows')
+      const { doc } = await this.api('anime/list-mode')
 
       const obj = {
-        title: [
-          ...doc.querySelectorAll(
-            'div[class="tv-shows__inner"] > div > div[class="tv-show__body"] > div[class="tv-show__info"] > div[class="tv-show__info--head"] > a > h3'
-          ),
-        ],
-        url: [...doc.querySelectorAll('div[class="tv-shows__inner"] > div > div[class="tv-show__poster"] > a[href]')],
-        image: [
-          ...doc.querySelectorAll('div[class="tv-shows__inner"] > div > div[class="tv-show__poster"] > a > img[src]'),
-        ],
+        title: [...doc.querySelectorAll('div[class="soralist"] > div[class="blix"] > ul > li > a')],
+        url: [...doc.querySelectorAll('div[class="soralist"] > div[class="blix"] > ul > li > a[href]')],
       }
       return obj.title.map((el, i) => {
         return {
           title: el.textContent.trim(),
           url: obj.url[i].getAttribute('href'),
-          image: obj.image[i].getAttribute('src'),
         }
       })
     } catch (err) {
       throw err
     }
   }
-
+  // FIXME
   public async getAnime(animeTitle: string | string[]): Promise<BaseScraperResponse[]> {
     try {
-      const parsedAnimeTitle = animeTitle.toString().replace(/\s+/g, '-').toLowerCase()
+      const parsedAnimeTitle = this.parseTitle(animeTitle)
 
-      const { doc } = await this.api(`tv-show/${encodeURIComponent(parsedAnimeTitle)}`)
+      const { doc } = await this.api(`tv-show/${parsedAnimeTitle}`)
 
       const obj = {
         title: [...doc.querySelectorAll('div[class="episodes__inner"] > div > div[class="episode__body"] > a > h3')],
@@ -59,11 +54,11 @@ export default class SenpaiScraper extends BaseScraper {
       throw err
     }
   }
-
+  // FIXME
   public async getPlayers(animeTitle: string | string[]): Promise<BasePlayerResponse[]> {
     try {
-      const parsedAnimeTitle = animeTitle.toString().replace(/\s+/g, '-').toLowerCase()
-      const { doc } = await this.api(`episode/${encodeURIComponent(parsedAnimeTitle)}`)
+      const parsedAnimeTitle = animeTitle
+      const { doc } = await this.api(`episode/${parsedAnimeTitle}`)
 
       const obj = {
         players: [...doc.querySelectorAll('div[class="episode__player"] > p > iframe[src]')],
