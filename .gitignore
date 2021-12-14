@@ -76,3 +76,4 @@ dist
 
 .now
 coverage
+.vercel

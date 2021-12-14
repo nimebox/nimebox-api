@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import BaseScraper, { BaseScraperResponse, BasePlayerResponse } from './BaseScraper'
-import utils from '../utils'
+import * as utils from '../utils'
 
 export default class WbijamScraper extends BaseScraper {
   constructor() {
