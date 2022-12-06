@@ -33,7 +33,7 @@
     "pino": "^7.0.5",
     "pino-multi-stream": "^6.0.0",
     "pino-pretty": "^7.1.0",
-    "qs": "^6.10.1",
+    "qs": "^6.10.3",
     "tough-cookie": "^4.0.0",
     "x-ray": "^2.3.4"
   },
